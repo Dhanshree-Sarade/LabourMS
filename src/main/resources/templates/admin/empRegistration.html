@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Skydash Admin</title>
+  <!-- plugins:css -->
+  <link rel="stylesheet" href="admin/vendors/feather/feather.css">
+  <link rel="stylesheet" href="admin/vendors/ti-icons/css/themify-icons.css">
+  <link rel="stylesheet" href="admin/vendors/css/vendor.bundle.base.css">
+  <!-- endinject -->
+  <!-- Plugin css for this page -->
+  <link rel="stylesheet" href="admin/vendors/datatables.net-bs4/dataTables.bootstrap4.css">
+  <link rel="stylesheet" href="admin/vendors/ti-icons/css/themify-icons.css">
+  <link rel="stylesheet" type="text/css" href="admin/js/select.dataTables.min.css">
+  <!-- End plugin css for this page -->
+  <!-- inject:css -->
+  <link rel="stylesheet" href="admin/css/vertical-layout-light/style.css">
+  <!-- endinject -->
+  <link rel="shortcut icon" href="admin/images/favicon.png" />
+</head>
+<body>
+	<div class="container-scroller">
+		
+		<nav th:replace="admin/index ::navbar1"></nav>
+		
+		<div class="container-fluid page-body-wrapper" >
+		<div th:replace="admin/index ::sidebar"></div>
+		
+		<nav th:replace="admin/index ::navbar2"></nav>
+		
+		<div class="main-panel">
+			<div class="content-wrapper">
+			
+				<div class="col-md-8 grid-margin stretch-card">
+				              <div class="card" style="margin-left: 25%;">
+				                <div class="card-body">
+				                  <h4 class="card-title">Employee Registration Form</h4>
+				                  <p class="card-description">
+				                    
+				                  </p>
+				                  <form class="forms-sample">
+				                    <div class="form-group">
+				                      <label for="exampleInputUsername1">First Name: </label>
+				                      <input type="text" class="form-control" id="exampleInputUsername1" placeholder="Username">
+				                    </div>
+				                    <div class="form-group">
+				                      <label for="exampleInputEmail1">Last Name: </label>
+				                      <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email">
+				                    </div>
+									<div class="form-group">
+										<label for="exampleInputMobile1">Mobile Number: </label>
+										<input type="mobile" class="form-control" id="exampleInputMobile1" placeholder="Mobile">
+									</div>
+									<div class="form-group">
+										<label for="exampleInputAddress1">Address: </label>
+										<input type="address" class="form-control" id="exampleInputAddress1" placeholder="Address">
+									</div>
+									<div class="form-group">
+										<label for="exampleInputDesignation1">Designation: </label>
+										<input type="Designation" class="form-control" id="exampleInputDesignation1" placeholder="Designation">
+									</div>
+				                    <div class="form-group">
+				                      <label for="exampleInputEmail1">Email Id:</label>
+				                      <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email">
+				                    </div>
+				                    <div class="form-group">
+				                      <label for="exampleInputConfirmPassword1">Password</label>
+				                      <input type="password" class="form-control" id="exampleInputConfirmPassword1" placeholder="Password">
+				                    </div>
+									<div class="form-group">
+										<label for="exampleInputSalary1">Yearly Salary: </label>
+										<input type="number" class="form-control" id="exampleInputSalary1" placeholder="Salary">
+									</div>
+				                    <button type="submit" class="btn btn-primary mr-2">Submit</button>
+				                    <button class="btn btn-light">Cancel</button>
+				                  </form>
+				                </div>
+				              </div>
+				            </div>
+			
+			</div>
+		</div>
+		</div>
+	</div>
+	
+	
+	
+	
+	
+	
+
+	
+	
+	 <!-- plugins:js -->
+	 <script src="admin/vendors/js/vendor.bundle.base.js"></script>
+	 <!-- endinject -->
+	 <!-- Plugin js for this page -->
+	 <script src="admin/vendors/chart.js/Chart.min.js"></script>
+	 <script src="admin/vendors/datatables.net/jquery.dataTables.js"></script>
+	 <script src="admin/vendors/datatables.net-bs4/dataTables.bootstrap4.js"></script>
+	 <script src="admin/js/dataTables.select.min.js"></script>
+	
+	 <!-- End plugin js for this page -->
+	 <!-- inject:js -->
+	 <script src="admin/js/off-canvas.js"></script>
+	 <script src="admin/js/hoverable-collapse.js"></script>
+	 <script src="admin/js/template.js"></script>
+	 <script src="admin/js/settings.js"></script>
+	 <script src="admin/js/todolist.js"></script>
+	 <!-- endinject -->
+	 <!-- Custom js for this page-->
+	 <script src="admin/js/dashboard.js"></script>
+	 <script src="admin/js/Chart.roundedBarCharts.js"></script>
+	 <!-- End custom js for this page-->
+	</body>
+	
+	</html>
+	
