@@ -3,6 +3,7 @@ package com.lbs.services;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.example.EmpCurd.EmpModel.Employee;
@@ -62,6 +63,16 @@ public class EmployeeDataService {
 		return r.save(ne);
 }
 
+
+
+	public static boolean validateEmployee(String email, String password) {
+		 if ((email.equals(email) && password.equals(password))){
+	            return true;
+	        }
+		return false;
+	}
+	
+	
 
 	
 	
