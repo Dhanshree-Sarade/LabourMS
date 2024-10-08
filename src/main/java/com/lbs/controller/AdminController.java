@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.view.RedirectView;
 
 import com.lbs.entities.Admin;
 import com.lbs.services.AdminService;
@@ -21,12 +22,15 @@ public class AdminController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody Admin admin) {
+    public ResponseEntity<?> login(@RequestBody Admin admin) {
         boolean isAuthenticated = adminService.validateAdmin(admin.getUsername(),admin.getPassword());
         if (isAuthenticated) {
-            return ResponseEntity.ok("Login successful! Welcome Admin.");
+            RedirectView redirectView = new RedirectView();
+            redirectView.setUrl("/index"); // assuming /index maps to the index page in your controller
+            return ResponseEntity.ok(redirectView);
+
         } else {
-            return ResponseEntity.status(401).body("Invalid credentials");
+        	return ResponseEntity.status(401).body("Invalid credentials");
         }
     }
 }

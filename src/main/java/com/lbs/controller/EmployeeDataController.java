@@ -64,15 +64,14 @@ public class EmployeeDataController {
     
     @PostMapping("/login")
     public ResponseEntity<String> login(@RequestBody EmployeeData employeeData) {
-        boolean isAuthenticated = EmployeeDataService.validateEmployee(employeeData.getEmail(),employeeData.getPassword());
+        boolean isAuthenticated = ser.validateEmployee(employeeData.getEmail(), employeeData.getPassword());
+        
         if (isAuthenticated) {
-            return ResponseEntity.ok("Login successful! Welcome Admin.");
+            return ResponseEntity.ok("Login successful! Welcome.");
         } else {
-            return ResponseEntity.status(401).body("Invalid credentials");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials");
         }
     }
-
-
 
 
 
