@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.lbs.entities.Admin;
 import com.lbs.entities.EmployeeData;
 import com.lbs.services.EmployeeDataService;
 
@@ -57,6 +58,18 @@ public class EmployeeDataController {
     public ResponseEntity<EmployeeData> updateEmpData(@RequestBody EmployeeData employeeData) {
         EmployeeData updatedEmployee = ser.updateEmpData(employeeData);
         return new ResponseEntity<>(updatedEmployee, HttpStatus.OK);
+    }
+
+    
+    
+    @PostMapping("/login")
+    public ResponseEntity<String> login(@RequestBody EmployeeData employeeData) {
+        boolean isAuthenticated = EmployeeDataService.validateEmployee(employeeData.getEmail(),employeeData.getPassword());
+        if (isAuthenticated) {
+            return ResponseEntity.ok("Login successful! Welcome Admin.");
+        } else {
+            return ResponseEntity.status(401).body("Invalid credentials");
+        }
     }
 
 
