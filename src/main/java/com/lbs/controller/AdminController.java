@@ -1,5 +1,8 @@
 package com.lbs.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,16 +25,28 @@ public class AdminController {
     }
 
     @PostMapping("/login")
+
     public ResponseEntity<?> login(@RequestBody Admin admin) {
-        boolean isAuthenticated = adminService.validateAdmin(admin.getUsername(),admin.getPassword());
+
+        boolean isAuthenticated = adminService.validateAdmin(admin.getUsername(), admin.getPassword());
+
         if (isAuthenticated) {
-            RedirectView redirectView = new RedirectView();
-            redirectView.setUrl("/index"); // assuming /index maps to the index page in your controller
-            return ResponseEntity.ok(redirectView);
+
+            Map<String, String> response = new HashMap<>();
+
+            response.put("redirectUrl", "/index"); // URL to redirect
+
+            return ResponseEntity.ok(response); // Return the response as a JSON object
+
 
         } else {
-        	return ResponseEntity.status(401).body("Invalid credentials");
+
+            return ResponseEntity.status(401).body("Invalid credentials");
+
         }
+
     }
+
+
 }
 

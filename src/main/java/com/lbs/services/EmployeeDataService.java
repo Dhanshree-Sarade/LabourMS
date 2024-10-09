@@ -57,6 +57,7 @@ public class EmployeeDataService {
 			ne.setDesignation(employeeData.getDesignation());
 			ne.setJoining_date(employeeData.getJoining_date());
 			ne.setSalary(employeeData.getSalary());
+			ne.setStatus(employeeData.getStatus());
 			
 			
 		}

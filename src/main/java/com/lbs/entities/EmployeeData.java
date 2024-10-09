@@ -33,11 +33,32 @@ public class EmployeeData {
 	private LocalDate joining_date;
 	@Column(name="Salary")
     private Double salary;
+	@Column(name="Status")
+	private String status;
+	
+	
+	public EmployeeData(String status) {
+		super();
+		this.status = status;
+	}
+
 	
 	public EmployeeData() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
+
+
+	public String getStatus() {
+		return status;
+	}
+
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
 
 	public EmployeeData(long id, String fName, String lName, String address, String mobile_no, String email,
 			String password, String designation, LocalDate joining_date, Double salary) {
@@ -134,14 +155,15 @@ public class EmployeeData {
 		this.salary = salary;
 	}
 
+
 	@Override
 	public String toString() {
 		return "EmployeeData [id=" + id + ", fName=" + fName + ", lName=" + lName + ", address=" + address
 				+ ", mobile_no=" + mobile_no + ", email=" + email + ", password=" + password + ", designation="
-				+ designation + ", joining_date=" + joining_date + ", salary=" + salary + "]";
+				+ designation + ", joining_date=" + joining_date + ", salary=" + salary + ", status=" + status + "]";
 	}
-	
-	
+
+		
 	
 
 }
