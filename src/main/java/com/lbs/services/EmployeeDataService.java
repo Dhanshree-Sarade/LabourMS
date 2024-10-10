@@ -3,10 +3,8 @@ package com.lbs.services;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import com.example.EmpCurd.EmpModel.Employee;
 import com.lbs.entities.EmployeeData;
 import com.lbs.repository.EmpolyeeDataRepo;
 

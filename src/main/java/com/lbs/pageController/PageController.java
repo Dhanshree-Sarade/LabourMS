@@ -6,6 +6,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class PageController {
 	
+	@GetMapping("/adminLogin")
+		public String adminLogin() {
+			return "admin/AdminLogin";
+	}
+	
 	@GetMapping("/index")
 		public String indexPage() {
 			return "admin/index";
@@ -25,4 +30,5 @@ public class PageController {
 		public String empStatus() {
 			return "admin/empStatus";
 	}
+	
 }

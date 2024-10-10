@@ -44,37 +44,41 @@
 				                  <form class="forms-sample">
 				                    <div class="form-group">
 				                      <label for="exampleInputUsername1">First Name: </label>
-				                      <input type="text" class="form-control" id="exampleInputUsername1" placeholder="Username">
+				                      <input type="text" class="form-control" id="exampleInputFname1" name="fName" placeholder="Username">
 				                    </div>
 				                    <div class="form-group">
 				                      <label for="exampleInputEmail1">Last Name: </label>
-				                      <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email">
+				                      <input type="email" class="form-control" id="exampleInputLName1" name="lName" placeholder="Email">
 				                    </div>
 									<div class="form-group">
 										<label for="exampleInputMobile1">Mobile Number: </label>
-										<input type="mobile" class="form-control" id="exampleInputMobile1" placeholder="Mobile">
+										<input type="mobile" class="form-control" id="exampleInputMobile1" name="mobile_no" placeholder="Mobile">
 									</div>
 									<div class="form-group">
 										<label for="exampleInputAddress1">Address: </label>
-										<input type="address" class="form-control" id="exampleInputAddress1" placeholder="Address">
+										<input type="address" class="form-control" id="exampleInputAddress1" name="address" placeholder="Address">
 									</div>
 									<div class="form-group">
 										<label for="exampleInputDesignation1">Designation: </label>
-										<input type="Designation" class="form-control" id="exampleInputDesignation1" placeholder="Designation">
+										<input type="Designation" class="form-control" id="exampleInputDesignation1" name="designation" placeholder="Designation">
 									</div>
 				                    <div class="form-group">
 				                      <label for="exampleInputEmail1">Email Id:</label>
-				                      <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email">
+				                      <input type="email" class="form-control" id="exampleInputEmail1" name="email" placeholder="Email">
 				                    </div>
 				                    <div class="form-group">
-				                      <label for="exampleInputConfirmPassword1">Password</label>
-				                      <input type="password" class="form-control" id="exampleInputConfirmPassword1" placeholder="Password">
+				                      <label for="exampleInputConfirmPassword1">Password: </label>
+				                      <input type="password" class="form-control" id="exampleInputConfirmPassword1" name="password" placeholder="Password">
 				                    </div>
 									<div class="form-group">
-										<label for="exampleInputSalary1">Yearly Salary: </label>
-										<input type="number" class="form-control" id="exampleInputSalary1" placeholder="Salary">
+										<label for="exampleInputJoiningDate1">Joining Date: </label>
+										<input type="date" class="form-control" id="exampleInputJoiningDate1" name="joiningDate" placeholder="JoiningDate">
 									</div>
-				                    <button type="submit" class="btn btn-primary mr-2">Submit</button>
+									<div class="form-group">
+										<label for="exampleInputSalary1">Yearly Salary: </label>
+										<input type="number" class="form-control" id="exampleInputSalary1" name="salary" placeholder="Salary">
+									</div>
+				                    <button type="submit" class="btn btn-primary mr-2" id="empSave">Submit</button>
 				                    <button class="btn btn-light">Cancel</button>
 				                  </form>
 				                </div>
@@ -115,6 +119,7 @@
 	 <script src="admin/js/dashboard.js"></script>
 	 <script src="admin/js/Chart.roundedBarCharts.js"></script>
 	 <!-- End custom js for this page-->
+	 <script src="admin/js/empRegisterJs.js"></script>
 	</body>
 	
 	</html>
