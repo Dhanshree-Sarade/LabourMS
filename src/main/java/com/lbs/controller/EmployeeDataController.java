@@ -1,7 +1,9 @@
 package com.lbs.controller;
 
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -98,11 +100,23 @@ public class EmployeeDataController {
 
     
     
+//    @PostMapping("/login")
+//    public ResponseEntity<String> login(@RequestBody EmployeeData employeeData) {
+//        boolean isAuthenticated = EmployeeDataService.validateEmployee(employeeData.getEmail(),employeeData.getPassword());
+//        if (isAuthenticated) {
+//            return ResponseEntity.ok("Login successful! Welcome Admin.");
+//        } else {
+//            return ResponseEntity.status(401).body("Invalid credentials");
+//        }
+//    }
+    
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody EmployeeData employeeData) {
+    public ResponseEntity<?> login(@RequestBody EmployeeData employeeData) {
         boolean isAuthenticated = EmployeeDataService.validateEmployee(employeeData.getEmail(),employeeData.getPassword());
         if (isAuthenticated) {
-            return ResponseEntity.ok("Login successful! Welcome Admin.");
+            Map<String, String> response = new HashMap<>();
+            response.put("redirectUrl", "/empIndex"); // URL to redirect
+            return ResponseEntity.ok(response); // Return the response as a JSON object
         } else {
             return ResponseEntity.status(401).body("Invalid credentials");
         }
