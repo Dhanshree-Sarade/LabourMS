@@ -3,6 +3,8 @@ package com.lbs.entities;
 import jakarta.persistence.*;
 import java.time.Duration;
 import java.time.LocalDateTime;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 //add so
 @Entity
 @Table(name="Employee_Details_CheckInOut")
@@ -12,7 +14,8 @@ public class EmpCheckInCheckOut {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long cId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
+    @JsonBackReference
     @JoinColumn(name = "id", nullable = false)  
     private EmployeeData employee;  
 

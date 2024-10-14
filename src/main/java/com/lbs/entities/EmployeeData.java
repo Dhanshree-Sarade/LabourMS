@@ -3,6 +3,8 @@ package com.lbs.entities;
 import java.time.LocalDate;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -41,7 +43,8 @@ public class EmployeeData {
 	private String status;
 	
 	
-	@OneToMany(mappedBy = "employee", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "employee", cascade = CascadeType.ALL)
+	@JsonBackReference
     private List<EmpCheckInCheckOut> checkInCheckOutRecords;
 
 
