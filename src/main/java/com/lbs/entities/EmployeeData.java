@@ -1,12 +1,16 @@
 package com.lbs.entities;
 
 import java.time.LocalDate;
+import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -37,17 +41,133 @@ public class EmployeeData {
 	private String status;
 	
 	
-	public EmployeeData(String status) {
-		super();
-		this.status = status;
-	}
+	@OneToMany(mappedBy = "employee", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<EmpCheckInCheckOut> checkInCheckOutRecords;
 
-	
+
 	public EmployeeData() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	
+
+
+	public EmployeeData(long id, String fName, String lName, String address, String mobile_no, String email,
+			String password, String designation, LocalDate joining_date, Double salary, String status,
+			List<EmpCheckInCheckOut> checkInCheckOutRecords) {
+		super();
+		this.id = id;
+		this.fName = fName;
+		this.lName = lName;
+		this.address = address;
+		this.mobile_no = mobile_no;
+		this.email = email;
+		this.password = password;
+		this.designation = designation;
+		this.joining_date = joining_date;
+		this.salary = salary;
+		this.status = status;
+		this.checkInCheckOutRecords = checkInCheckOutRecords;
+	}
+
+
+	public long getId() {
+		return id;
+	}
+
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+
+	public String getfName() {
+		return fName;
+	}
+
+
+	public void setfName(String fName) {
+		this.fName = fName;
+	}
+
+
+	public String getlName() {
+		return lName;
+	}
+
+
+	public void setlName(String lName) {
+		this.lName = lName;
+	}
+
+
+	public String getAddress() {
+		return address;
+	}
+
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+
+	public String getMobile_no() {
+		return mobile_no;
+	}
+
+
+	public void setMobile_no(String mobile_no) {
+		this.mobile_no = mobile_no;
+	}
+
+
+	public String getEmail() {
+		return email;
+	}
+
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+
+	public String getPassword() {
+		return password;
+	}
+
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+
+	public String getDesignation() {
+		return designation;
+	}
+
+
+	public void setDesignation(String designation) {
+		this.designation = designation;
+	}
+
+
+	public LocalDate getJoining_date() {
+		return joining_date;
+	}
+
+
+	public void setJoining_date(LocalDate joining_date) {
+		this.joining_date = joining_date;
+	}
+
+
+	public Double getSalary() {
+		return salary;
+	}
+
+
+	public void setSalary(Double salary) {
+		this.salary = salary;
+	}
 
 
 	public String getStatus() {
@@ -60,99 +180,13 @@ public class EmployeeData {
 	}
 
 
-	public EmployeeData(long id, String fName, String lName, String address, String mobile_no, String email,
-			String password, String designation, LocalDate joining_date, Double salary) {
-		super();
-		this.id = id;
-		this.fName = fName;
-		this.lName = lName;
-		this.address = address;
-		this.mobile_no = mobile_no;
-		this.email = email;
-		this.password = password;
-		this.designation = designation;
-		this.joining_date = joining_date;
-		this.salary = salary;
+	public List<EmpCheckInCheckOut> getCheckInCheckOutRecords() {
+		return checkInCheckOutRecords;
 	}
 
-	public long getId() {
-		return id;
-	}
 
-	public void setId(long id) {
-		this.id = id;
-	}
-
-	public String getfName() {
-		return fName;
-	}
-
-	public void setfName(String fName) {
-		this.fName = fName;
-	}
-
-	public String getlName() {
-		return lName;
-	}
-
-	public void setlName(String lName) {
-		this.lName = lName;
-	}
-
-	public String getAddress() {
-		return address;
-	}
-
-	public void setAddress(String address) {
-		this.address = address;
-	}
-
-	public String getMobile_no() {
-		return mobile_no;
-	}
-
-	public void setMobile_no(String mobile_no) {
-		this.mobile_no = mobile_no;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	public String getDesignation() {
-		return designation;
-	}
-
-	public void setDesignation(String designation) {
-		this.designation = designation;
-	}
-
-	public LocalDate getJoining_date() {
-		return joining_date;
-	}
-
-	public void setJoining_date(LocalDate joining_date) {
-		this.joining_date = joining_date;
-	}
-
-	public Double getSalary() {
-		return salary;
-	}
-
-	public void setSalary(Double salary) {
-		this.salary = salary;
+	public void setCheckInCheckOutRecords(List<EmpCheckInCheckOut> checkInCheckOutRecords) {
+		this.checkInCheckOutRecords = checkInCheckOutRecords;
 	}
 
 
@@ -160,10 +194,13 @@ public class EmployeeData {
 	public String toString() {
 		return "EmployeeData [id=" + id + ", fName=" + fName + ", lName=" + lName + ", address=" + address
 				+ ", mobile_no=" + mobile_no + ", email=" + email + ", password=" + password + ", designation="
-				+ designation + ", joining_date=" + joining_date + ", salary=" + salary + ", status=" + status + "]";
+				+ designation + ", joining_date=" + joining_date + ", salary=" + salary + ", status=" + status
+				+ ", checkInCheckOutRecords=" + checkInCheckOutRecords + "]";
 	}
-
-		
+	
+	
 	
 
+	
+	
 }
