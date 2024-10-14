@@ -111,18 +111,24 @@ public class EmployeeDataController {
 //    }
     
     @PostMapping("/login")
+<<<<<<< HEAD
     public ResponseEntity<?> login(@RequestBody EmployeeData employeeData) {
         boolean isAuthenticated = EmployeeDataService.validateEmployee(employeeData.getEmail(),employeeData.getPassword());
         if (isAuthenticated) {
             Map<String, String> response = new HashMap<>();
             response.put("redirectUrl", "/empIndex"); // URL to redirect
             return ResponseEntity.ok(response); // Return the response as a JSON object
+=======
+    public ResponseEntity<String> login(@RequestBody EmployeeData employeeData) {
+        boolean isAuthenticated = ser.validateEmployee(employeeData.getEmail(), employeeData.getPassword());
+        
+        if (isAuthenticated) {
+            return ResponseEntity.ok("Login successful! Welcome.");
+>>>>>>> d6155461db31555c12ccc426ea58fa0a8aef0025
         } else {
-            return ResponseEntity.status(401).body("Invalid credentials");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials");
         }
     }
-
-
 
 
 

@@ -55,21 +55,36 @@ public class EmployeeDataService {
 			ne.setDesignation(employeeData.getDesignation());
 			ne.setJoining_date(employeeData.getJoining_date());
 			ne.setSalary(employeeData.getSalary());
+			ne.setStatus(employeeData.getStatus());
 			
 			
 		}
 		return r.save(ne);
 }
 
-
-
-	public static boolean validateEmployee(String email, String password) {
-		 if ((email.equals(email) && password.equals(password))){
-	            return true;
-	        }
-		return false;
+	public EmployeeData findEmployeeByEmail(String email) {
+	    return r.findByEmail(email);
 	}
 	
+	public boolean validateEmployee(String email, String password) {
+        // Fetch the employee from the database by email
+        EmployeeData employee = r.findByEmail(email);
+
+        // Check if the employee exists and the password matches
+        if (employee != null && employee.getPassword().equals(password)) {
+            return true;
+        }
+
+        // If employee doesn't exist or password doesn't match, return false
+        return false;
+    }
+
+
+ 
+	
+
+    
+		
 	
 
 	
