@@ -3,7 +3,7 @@ package com.lbs.entities;
 import jakarta.persistence.*;
 import java.time.Duration;
 import java.time.LocalDateTime;
-
+//add so
 @Entity
 @Table(name="Employee_Details_CheckInOut")
 public class EmpCheckInCheckOut {
