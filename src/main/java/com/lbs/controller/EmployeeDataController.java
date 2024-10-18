@@ -31,7 +31,7 @@ public class EmployeeDataController {
 	 private EmployeeDataService ser;
 	  
 	@PostMapping("/employees")
-    public ResponseEntity<EmployeeData> createEmp(@RequestBody EmployeeData employeeData) {
+	public ResponseEntity<EmployeeData> createEmp(@RequestBody EmployeeData employeeData) {
         EmployeeData createdEmployee = ser.createEmp(employeeData);
         return new ResponseEntity<>(createdEmployee, HttpStatus.CREATED);
     }
@@ -43,13 +43,13 @@ public class EmployeeDataController {
     }
 	
 	@DeleteMapping("/employees/{id}")
-    public ResponseEntity<Void> deleteEmpData(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteEmpData(@PathVariable String id) {
         ser.deleteEmp(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 	
     @GetMapping("/employees/{id}")
-    public ResponseEntity<EmployeeData> showDetailById(@PathVariable Long id) {
+    public ResponseEntity<EmployeeData> showDetailById(@PathVariable String id) {
         EmployeeData employee = ser.findId(id);
         if (employee != null) {
             return new ResponseEntity<>(employee, HttpStatus.OK);
@@ -59,15 +59,11 @@ public class EmployeeDataController {
     }
 
 
-//    @PutMapping("/employees")
-//    public ResponseEntity<EmployeeData> updateEmpData(@RequestBody EmployeeData employeeData) {
-//        EmployeeData updatedEmployee = ser.updateEmpData(employeeData);
-//        return new ResponseEntity<>(updatedEmployee, HttpStatus.OK);
-//    }
+
     
     @PutMapping("/employees")
     public ResponseEntity<EmployeeData> updateEmpData(
-            @RequestParam("id") long id,
+            @RequestParam("id") String id,
             @RequestParam("fName") String fName,
             @RequestParam("lName") String lName,
             @RequestParam("address") String address,
@@ -79,7 +75,7 @@ public class EmployeeDataController {
             @RequestParam("salary") Double salary) {
 
         // Create an EmployeeData object with the incoming parameters
-        EmployeeData employeeData = new EmployeeData();
+       EmployeeData employeeData = new EmployeeData();
         employeeData.setId(id);
         employeeData.setfName(fName);
         employeeData.setlName(lName);
@@ -91,45 +87,38 @@ public class EmployeeDataController {
         employeeData.setJoining_date(joiningDate);
         employeeData.setSalary(salary);
 
-        // Call the service method to update employee data
-        EmployeeData updatedEmployee = ser.updateEmpData(employeeData);
 
-        return new ResponseEntity<>(updatedEmployee, HttpStatus.OK);
+        
+
+    	EmployeeData updatedEmployee = ser.updateEmpData(employeeData);
+
+    return new ResponseEntity<>(updatedEmployee, HttpStatus.OK);
+    	
+
     }
 
 
     
     
-//    @PostMapping("/login")
-//    public ResponseEntity<String> login(@RequestBody EmployeeData employeeData) {
-//        boolean isAuthenticated = EmployeeDataService.validateEmployee(employeeData.getEmail(),employeeData.getPassword());
-//        if (isAuthenticated) {
-//            return ResponseEntity.ok("Login successful! Welcome Admin.");
-//        } else {
-//            return ResponseEntity.status(401).body("Invalid credentials");
-//        }
-//    }
     
+     
     @PostMapping("/login")
-<<<<<<< HEAD
     public ResponseEntity<?> login(@RequestBody EmployeeData employeeData) {
-        boolean isAuthenticated = EmployeeDataService.validateEmployee(employeeData.getEmail(),employeeData.getPassword());
-        if (isAuthenticated) {
-            Map<String, String> response = new HashMap<>();
-            response.put("redirectUrl", "/empIndex"); // URL to redirect
-            return ResponseEntity.ok(response); // Return the response as a JSON object
-=======
-    public ResponseEntity<String> login(@RequestBody EmployeeData employeeData) {
         boolean isAuthenticated = ser.validateEmployee(employeeData.getEmail(), employeeData.getPassword());
-        
         if (isAuthenticated) {
-            return ResponseEntity.ok("Login successful! Welcome.");
->>>>>>> d6155461db31555c12ccc426ea58fa0a8aef0025
-        } else {
+            // Fetch the employee data from the database
+            EmployeeData employee = ser.findEmployeeByEmail(employeeData.getEmail());
+
+            // Prepare the response with employee details
+            Map<String, Object> response = new HashMap<>();
+            response.put("redirectUrl", "/empIndex"); 
+            response.put("id", employee.getId()); 
+            response.put("email", employee.getEmail()); 
+           
+            return ResponseEntity.ok(response);
+        } else {         
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials");
         }
     }
-
-
 
 }

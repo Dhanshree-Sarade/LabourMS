@@ -18,14 +18,14 @@ public class EmpCheckController {
       
     
     @PostMapping("/checkin/{id}")
-    public ResponseEntity<EmpCheckInCheckOut> checkIn(@PathVariable Long id) {
+    public ResponseEntity<EmpCheckInCheckOut> checkIn(@PathVariable String id) {
         EmpCheckInCheckOut checkInRecord = empCheckService.checkIn(id);
         return ResponseEntity.ok(checkInRecord);
     }
 
-    @PostMapping("/checkout/{employeeId}")
-    public ResponseEntity<String> checkOut(@PathVariable Long employeeId) {
-        EmpCheckInCheckOut checkOutRecord = empCheckService.checkOut(employeeId);
+    @PostMapping("/checkout/{id}")
+    public ResponseEntity<String> checkOut(@PathVariable String id) {
+        EmpCheckInCheckOut checkOutRecord = empCheckService.checkOut(id);
         String totalHours = checkOutRecord.getTotalHoursWorked(); 
         return ResponseEntity.ok("Employee checked out. Total hours worked: " + totalHours);
     }

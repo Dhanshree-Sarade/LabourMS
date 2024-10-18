@@ -3,18 +3,40 @@ package com.lbs.services;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import com.lbs.entities.EmployeeData;
 import com.lbs.repository.EmpolyeeDataRepo;
+
+import jakarta.transaction.Transactional;
 
 
 @Service
 public class EmployeeDataService {
 	@Autowired
 	private EmpolyeeDataRepo r;
+	private String generateId() {
+        String prefix = "emp";
+        String maxId = r.findMaxId();
+        int nextId = 101; 
+        if (maxId != null) {
+           
+            String numericPart = maxId.substring(prefix.length());
+            nextId = Integer.parseInt(numericPart) + 1;
+        }
+
+        return prefix + nextId; 
+        }
+
 	
 	public EmployeeData createEmp(EmployeeData employeeData) {
+		if (r.findByEmail(employeeData.getEmail()) != null) {
+	        throw new ResponseStatusException(HttpStatus.CONFLICT, "Email already exists");
+	    }
+
+		employeeData.setId(generateId()); 
 		return  r.save(employeeData);
 		
 	}
@@ -29,13 +51,13 @@ public class EmployeeDataService {
 
 
 
-	public void deleteEmp(Long id) {
+	public void deleteEmp(String id) {
 		r.deleteById(id);	
 	}
 
 
 
-	public EmployeeData findId(Long id) {
+	public EmployeeData findId(String id) {
 		return r.findById(id).orElse(null);
 
 	}
@@ -44,6 +66,19 @@ public class EmployeeDataService {
 
 	public EmployeeData updateEmpData(EmployeeData employeeData) {
 		EmployeeData ne=r.findById(employeeData.getId()).orElse(employeeData);
+		
+		if (ne == null) {
+	        throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Employee not found");
+	    }
+
+	   
+	    EmployeeData employeeWithSameEmail = r.findByEmail(employeeData.getEmail());
+	    if (employeeWithSameEmail != null && !employeeWithSameEmail.getId().equals(employeeData.getId())) {
+	        throw new ResponseStatusException(HttpStatus.CONFLICT, "Email already exists");
+	    }
+
+
+
 		if(ne!=null) {
 			
 			ne.setfName(employeeData.getfName());
@@ -61,26 +96,24 @@ public class EmployeeDataService {
 		}
 		return r.save(ne);
 }
+	@Transactional
 
 	public EmployeeData findEmployeeByEmail(String email) {
 	    return r.findByEmail(email);
 	}
 	
 	public boolean validateEmployee(String email, String password) {
-        // Fetch the employee from the database by email
-        EmployeeData employee = r.findByEmail(email);
+               EmployeeData employee = r.findByEmail(email);
 
-        // Check if the employee exists and the password matches
+       
         if (employee != null && employee.getPassword().equals(password)) {
             return true;
         }
 
-        // If employee doesn't exist or password doesn't match, return false
+       
         return false;
     }
-
-
- 
+	 
 	
 
     

@@ -19,8 +19,7 @@ import jakarta.persistence.Table;
 @Table(name="EmployeeData")
 public class EmployeeData {
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private long id;
+	private String id;
 	@Column(name="First_Name")
 	private String fName;
 	@Column(name="Last_Name")
@@ -46,6 +45,11 @@ public class EmployeeData {
 	@OneToMany(mappedBy = "employee", cascade = CascadeType.ALL)
 	@JsonBackReference
     private List<EmpCheckInCheckOut> checkInCheckOutRecords;
+	
+	
+	@OneToMany(mappedBy = "employeeL", cascade = CascadeType.ALL)
+	
+	private List<LeaveEmp> leaveRecords;
 
 
 	public EmployeeData() {
@@ -54,9 +58,9 @@ public class EmployeeData {
 	}
 
 
-	public EmployeeData(long id, String fName, String lName, String address, String mobile_no, String email,
+	public EmployeeData(String id, String fName, String lName, String address, String mobile_no, String email,
 			String password, String designation, LocalDate joining_date, Double salary, String status,
-			List<EmpCheckInCheckOut> checkInCheckOutRecords) {
+			List<EmpCheckInCheckOut> checkInCheckOutRecords, List<LeaveEmp> leaveRecords) {
 		super();
 		this.id = id;
 		this.fName = fName;
@@ -70,15 +74,16 @@ public class EmployeeData {
 		this.salary = salary;
 		this.status = status;
 		this.checkInCheckOutRecords = checkInCheckOutRecords;
+		this.leaveRecords = leaveRecords;
 	}
 
 
-	public long getId() {
+	public String getId() {
 		return id;
 	}
 
 
-	public void setId(long id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
@@ -193,17 +198,23 @@ public class EmployeeData {
 	}
 
 
+	public List<LeaveEmp> getLeaveRecords() {
+		return leaveRecords;
+	}
+
+
+	public void setLeaveRecords(List<LeaveEmp> leaveRecords) {
+		this.leaveRecords = leaveRecords;
+	}
+
+
 	@Override
 	public String toString() {
 		return "EmployeeData [id=" + id + ", fName=" + fName + ", lName=" + lName + ", address=" + address
 				+ ", mobile_no=" + mobile_no + ", email=" + email + ", password=" + password + ", designation="
 				+ designation + ", joining_date=" + joining_date + ", salary=" + salary + ", status=" + status
-				+ ", checkInCheckOutRecords=" + checkInCheckOutRecords + "]";
+				+ ", checkInCheckOutRecords=" + checkInCheckOutRecords + ", leaveRecords=" + leaveRecords + "]";
 	}
-	
-	
-	
+    
 
-	
-	
 }
