@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -17,6 +18,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name="EmployeeData")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "empCheckInCheckOutList"})
 public class EmployeeData {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)

@@ -41,7 +41,7 @@
 				                  <p class="card-description">
 				                    
 				                  </p>
-				                  <form class="forms-sample">
+				                  <form class="forms-sample" id="registerForm">
 				                    <div class="form-group">
 				                      <label for="exampleInputUsername1">First Name: </label>
 				                      <input type="text" class="form-control" id="exampleInputFname1" name="fName" placeholder="Username">
@@ -58,9 +58,21 @@
 										<label for="exampleInputAddress1">Address: </label>
 										<input type="address" class="form-control" id="exampleInputAddress1" name="address" placeholder="Address">
 									</div>
-									<div class="form-group">
+									<!--<div class="form-group">
 										<label for="exampleInputDesignation1">Designation: </label>
 										<input type="Designation" class="form-control" id="exampleInputDesignation1" name="designation" placeholder="Designation">
+									</div>-->
+									<div class="form-group">
+									    <label for="exampleInputDesignation1">Designation:</label>
+									    <select class="form-control" id="exampleInputDesignation1" name="designation">
+									        <option value="">Select Designation</option> <!-- Placeholder option -->
+									        <option value="Manager">Manager</option>
+									        <option value="Developer">Developer</option>
+									        <option value="Tester">Tester</option>
+									        <option value="HR">HR</option>
+									        <option value="Designer">Designer</option>
+									        <!-- Add more designations as needed -->
+									    </select>
 									</div>
 				                    <div class="form-group">
 				                      <label for="exampleInputEmail1">Email Id:</label>
@@ -83,7 +95,7 @@
 				                  </form>
 				                </div>
 				              </div>
-				            </div>
+				</div>
 			
 			</div>
 		</div>

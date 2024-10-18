@@ -24,41 +24,55 @@
 <body>
 	<div class="container-scroller">
 		
-		<nav th:replace="admin/index ::navbar1"></nav>
+		<nav th:replace="admin/empIndex ::navbar1"></nav>
 		
 		<div class="container-fluid page-body-wrapper" >
-		<div th:replace="admin/index ::sidebar"></div>
+		<div th:replace="admin/empIndex ::sidebar"></div>
 		
-		<nav th:replace="admin/index ::navbar2"></nav>
+		<nav th:replace="admin/empIndex ::navbar2"></nav>
 		
 		<div class="main-panel">
 			<div class="content-wrapper">
-			<div class="col-lg-12 grid-margin stretch-card">
-				<div class="card">
-					<div class="card-body">
-						<h4 class="card-title">Daily Employee Attendance</h4>
-						
-						<div class="table-responsive pt-3">
-							<table class="table table-bordered">
-								<thead>
-									<tr>
-										<th> Employee Id</th>
-										<th> First Name </th>
-										<th> Last Name </th>
-										<th> Date </th>
-										<th> Check In </th>
-										<th> Check Out </th>
-										<th> Total Hours </th>
-									</tr>
-								</thead>
-								<tbody id="empAttendance">
-									
-								</tbody>
-							</table>
-						</div>
-					</div>
+	
+				<div class="col-md-6 grid-margin stretch-card">
+				  <div class="card">
+				    <div class="card-body">
+				      <h4 class="card-title">Personal Details</h4>
+				      <form class="forms-sample">
+				        <div class="form-group">
+				          <label for="exampleInputFirstname1">First Name:</label>
+				          <input type="text" class="form-control" id="exampleInputFirstname1" placeholder="Firstname" readonly>
+				        </div>
+				        <div class="form-group">
+				          <label for="exampleInputLastname1">Last Name:</label>
+				          <input type="text" class="form-control" id="exampleInputLastname1" placeholder="Lastname" readonly>
+				        </div>
+				        <div class="form-group">
+				          <label for="exampleInputMobile1">Mobile Number:</label>
+				          <input type="text" class="form-control" id="exampleInputMobile1" placeholder="Mobile" readonly>
+				        </div>
+				        <div class="form-group">
+				          <label for="exampleInputEmail1">Email Id:</label>
+				          <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email" readonly>
+				        </div>
+				        <div class="form-group">
+				          <label for="exampleInputAddress1">Address:</label>
+				          <input type="text" class="form-control" id="exampleInputAddress1" placeholder="Address" readonly>
+				        </div>
+				        <div class="form-group">
+				          <label for="exampleInputRole1">Role:</label>
+				          <input type="text" class="form-control" id="exampleInputRole1" placeholder="Role" readonly>
+				        </div>
+				        <div class="form-group">
+				          <label for="exampleInputDate1">Joining Date:</label>
+				          <input type="date" class="form-control" id="exampleInputDate1" placeholder="Joining Date" readonly>
+				        </div>
+				        <button class="btn btn-light">Cancel</button>
+				      </form>
+				    </div>
+				  </div>
 				</div>
-			</div>
+				
 			</div>
 		</div>
 		</div>
@@ -93,6 +107,7 @@
 	 <script src="admin/js/dashboard.js"></script>
 	 <script src="admin/js/Chart.roundedBarCharts.js"></script>
 	 <script src="admin/js/empAttendanceJs.js"></script>
+	 <script src="admin/js/empScript.js"></script>
 
 	 <!-- End custom js for this page-->
 	</body>

@@ -24,6 +24,8 @@ import com.lbs.entities.Admin;
 import com.lbs.entities.EmployeeData;
 import com.lbs.services.EmployeeDataService;
 
+import jakarta.servlet.http.HttpSession;
+
 @RestController
 public class EmployeeDataController {
 	
@@ -48,15 +50,15 @@ public class EmployeeDataController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 	
-    @GetMapping("/employees/{id}")
-    public ResponseEntity<EmployeeData> showDetailById(@PathVariable Long id) {
-        EmployeeData employee = ser.findId(id);
-        if (employee != null) {
-            return new ResponseEntity<>(employee, HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-    }
+	@GetMapping("/employees/{id}")
+	public ResponseEntity<EmployeeData> showDetailById(@PathVariable("id") Long id) {
+	    EmployeeData employee = ser.findId(id);
+	    if (employee != null) {
+	        return new ResponseEntity<>(employee, HttpStatus.OK);
+	    } else {
+	        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+	    }
+	}
 
 
 //    @PutMapping("/employees")
@@ -110,25 +112,38 @@ public class EmployeeDataController {
 //        }
 //    }
     
+//    @PostMapping("/login")
+//    public ResponseEntity<?> login(@RequestBody EmployeeData employeeData) {
+//        boolean isAuthenticated = ser.validateEmployee(employeeData.getEmail(),employeeData.getPassword());
+//        if (isAuthenticated) {
+//            Map<String, String> response = new HashMap<>();
+//            response.put("redirectUrl", "/empIndex"); // URL to redirect
+//            return ResponseEntity.ok(response); // Return the response as a JSON object
+//        }
+//        else {         
+//        	return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials");
+//     }
+//    }
+    
     @PostMapping("/login")
-<<<<<<< HEAD
-    public ResponseEntity<?> login(@RequestBody EmployeeData employeeData) {
-        boolean isAuthenticated = EmployeeDataService.validateEmployee(employeeData.getEmail(),employeeData.getPassword());
-        if (isAuthenticated) {
-            Map<String, String> response = new HashMap<>();
+    @ResponseBody
+    public ResponseEntity<?> login(@RequestBody EmployeeData employeeData, HttpSession session) {
+        EmployeeData employee = ser.getEmployeeByEmail(employeeData.getEmail());
+
+        if (employee != null && employee.getPassword().equals(employeeData.getPassword())) {
+            Map<String, Object> response = new HashMap<>();
+			session.setAttribute("loggedInUser", employee);
             response.put("redirectUrl", "/empIndex"); // URL to redirect
-            return ResponseEntity.ok(response); // Return the response as a JSON object
-=======
-    public ResponseEntity<String> login(@RequestBody EmployeeData employeeData) {
-        boolean isAuthenticated = ser.validateEmployee(employeeData.getEmail(), employeeData.getPassword());
-        
-        if (isAuthenticated) {
-            return ResponseEntity.ok("Login successful! Welcome.");
->>>>>>> d6155461db31555c12ccc426ea58fa0a8aef0025
+            response.put("id", employee.getId()); // Include employee ID
+            response.put("email", employee.getEmail()); // Include employee email
+            response.put("password", employee.getPassword()); // Include employee password
+
+            return ResponseEntity.ok(response); // Return response as JSON object
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials");
         }
     }
+
 
 
 

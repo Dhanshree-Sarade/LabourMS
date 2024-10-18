@@ -37,7 +37,6 @@ public class EmployeeDataService {
 
 	public EmployeeData findId(Long id) {
 		return r.findById(id).orElse(null);
-
 	}
 
 
@@ -78,6 +77,15 @@ public class EmployeeDataService {
         // If employee doesn't exist or password doesn't match, return false
         return false;
     }
+	
+	public EmployeeData getEmployeeByEmail(String email) {
+	    // Fetch the employee from the database by email
+	    EmployeeData employee = r.findByEmail(email);
+
+	    // Check if the employee exists and return it, otherwise return null
+	    return employee;
+	}
+
 
 
  

@@ -8,11 +8,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-<<<<<<< HEAD
-=======
-import org.springframework.web.servlet.view.RedirectView;
 
->>>>>>> d6155461db31555c12ccc426ea58fa0a8aef0025
+
 import com.lbs.entities.Admin;
 import com.lbs.services.AdminService;
 
@@ -37,40 +34,15 @@ public class AdminController {
 //    }
     
     @PostMapping("/login")
-<<<<<<< HEAD
     public ResponseEntity<?> login(@RequestBody Admin admin) {
         boolean isAuthenticated = adminService.validateAdmin(admin.getUsername(), admin.getPassword());
         if (isAuthenticated) {
             Map<String, String> response = new HashMap<>();
-            response.put("redirectUrl", "/index"); // URL to redirect
-            return ResponseEntity.ok(response); // Return the response as a JSON object
-=======
-
-    public ResponseEntity<?> login(@RequestBody Admin admin) {
-
-        boolean isAuthenticated = adminService.validateAdmin(admin.getUsername(), admin.getPassword());
-
-        if (isAuthenticated) {
-
-            Map<String, String> response = new HashMap<>();
-
-            response.put("redirectUrl", "/index"); // URL to redirect
-
-            return ResponseEntity.ok(response); // Return the response as a JSON object
-
-
->>>>>>> d6155461db31555c12ccc426ea58fa0a8aef0025
-        } else {
-
-            return ResponseEntity.status(401).body("Invalid credentials");
-
-        }
-
-    }
-
-<<<<<<< HEAD
-=======
-
->>>>>>> d6155461db31555c12ccc426ea58fa0a8aef0025
+           response.put("redirectUrl", "/index"); // URL to redirect
+           return ResponseEntity.ok(response); // Return the response as a JSON object
+       } else {
+         return ResponseEntity.status(401).body("Invalid credentials");
+     }
+  }
 }
 
