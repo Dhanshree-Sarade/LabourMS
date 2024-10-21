@@ -53,8 +53,8 @@ public class EmpCheckService {
         return empCheckRepo.findAll();
     }
 
-    public List<EmpCheckInCheckOut> getRecordsByEmpId(Long empId) {
-        return empCheckRepo.findByEmployeeId(empId);
+    public List<EmpCheckInCheckOut> getRecordsByEmpId(EmployeeData emp) {
+        return empCheckRepo.findByEmployeeId(emp);
     }
 
     

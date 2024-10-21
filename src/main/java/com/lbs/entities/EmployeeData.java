@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.CascadeType;
@@ -37,6 +38,8 @@ public class EmployeeData {
 	@Column(name="Designation")
     private String designation;
 	@Column(name="Joining_Date")
+	@JsonFormat(pattern = "yyyy-MM-dd")
+
 	private LocalDate joining_date;
 	@Column(name="Salary")
     private Double salary;
@@ -77,6 +80,14 @@ public class EmployeeData {
 		this.status = status;
 		this.checkInCheckOutRecords = checkInCheckOutRecords;
 		this.leaveRecords = leaveRecords;
+	}
+
+
+	
+
+
+	public EmployeeData(String id) {
+		this.id=id;
 	}
 
 

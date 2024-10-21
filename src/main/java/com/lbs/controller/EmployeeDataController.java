@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.lbs.entities.Admin;
 import com.lbs.entities.EmployeeData;
 import com.lbs.services.EmployeeDataService;
@@ -33,7 +34,28 @@ public class EmployeeDataController {
 	 private EmployeeDataService ser;
 	  
 	@PostMapping("/employees")
-	public ResponseEntity<EmployeeData> createEmp(@RequestBody EmployeeData employeeData) {
+	public ResponseEntity<EmployeeData> createEmp(  @RequestParam String fName,
+	        @RequestParam String lName,
+	        @RequestParam String address,
+	        @RequestParam String mobile_no,
+	        @RequestParam String email,
+	        @RequestParam String password,
+	        @RequestParam String designation,
+	        @RequestParam @JsonFormat(pattern = "yyyy-MM-dd") LocalDate joining_date,
+	        @RequestParam Double salary,
+	        @RequestParam String status) {
+		EmployeeData employeeData = new EmployeeData();
+	    employeeData.setfName(fName);
+	    employeeData.setlName(lName);
+	    employeeData.setAddress(address);
+	    employeeData.setMobile_no(mobile_no);
+	    employeeData.setEmail(email);
+	    employeeData.setPassword(password);
+	    employeeData.setDesignation(designation);
+	    employeeData.setJoining_date(joining_date);
+	    employeeData.setSalary(salary);
+	    employeeData.setStatus(status);
+		
         EmployeeData createdEmployee = ser.createEmp(employeeData);
         return new ResponseEntity<>(createdEmployee, HttpStatus.CREATED);
     }

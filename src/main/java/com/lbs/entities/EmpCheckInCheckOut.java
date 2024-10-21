@@ -15,7 +15,7 @@ public class EmpCheckInCheckOut {
     private long cId;
 
     @ManyToOne
-   // @JsonBackReference
+    @JsonBackReference
     @JoinColumn(name = "id", nullable = false)  
     private EmployeeData employee;  
 

@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import com.lbs.entities.EmpCheckInCheckOut;
+import com.lbs.entities.EmployeeData;
 import com.lbs.services.EmpCheckService;
 
 import java.util.List;
@@ -44,8 +45,8 @@ public class EmpCheckController {
     
     // Controller method to get records by Employee ID
     @GetMapping("/records/{empId}")
-    public ResponseEntity<List<EmpCheckInCheckOut>> getRecordsByEmpId(@PathVariable Long empId) {
-        List<EmpCheckInCheckOut> records = empCheckService.getRecordsByEmpId(empId);
+    public ResponseEntity<List<EmpCheckInCheckOut>> getRecordsByEmpId(@PathVariable EmployeeData emp) {
+        List<EmpCheckInCheckOut> records = empCheckService.getRecordsByEmpId(emp);
         return ResponseEntity.ok(records);
     }
 

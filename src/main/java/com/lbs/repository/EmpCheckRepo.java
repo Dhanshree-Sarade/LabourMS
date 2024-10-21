@@ -7,7 +7,7 @@ import com.lbs.entities.EmpCheckInCheckOut;
 import com.lbs.entities.EmployeeData;
 
 public interface EmpCheckRepo extends JpaRepository<EmpCheckInCheckOut, Long> {
-    EmpCheckInCheckOut findByEmployeeAndCheckOutIsNull(EmployeeData employee);
+	EmpCheckInCheckOut findByEmployeeAndCheckOutIsNull(EmployeeData employee);
     
-    List<EmpCheckInCheckOut> findByEmployeeId(Long empId);
+    List<EmpCheckInCheckOut> findByEmployeeId(EmployeeData emp);
 }
