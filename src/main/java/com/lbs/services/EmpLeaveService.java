@@ -47,6 +47,19 @@ public class EmpLeaveService {
 	public List<LeaveEmp> getLeavesByEmployee(String empId) {
 		return elr.findByEmployeeL_Id(empId);
 	}
+
+
+	public LeaveEmp updateLeaveStatus(Long leaveId, String status) {
+		Optional<LeaveEmp> leave = elr.findById(leaveId);
+        if (leave.isPresent()) {
+            LeaveEmp leaveEmp = leave.get();
+            leaveEmp.setStatus(status);  // Set the status to Approved or Rejected
+            return elr.save(leaveEmp);  // Save the updated entity
+        } else {
+            return null;  // If leave request not found
+        }
+
+	}
 	
 	
     

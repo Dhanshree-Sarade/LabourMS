@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -17,6 +18,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name="EmployeeData")
+
 public class EmployeeData {
 	@Id
 	private String id;
@@ -42,13 +44,13 @@ public class EmployeeData {
 	private String status;
 	
 	
-	@OneToMany(mappedBy = "employee", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "employee")
 	@JsonBackReference
     private List<EmpCheckInCheckOut> checkInCheckOutRecords;
 	
 	
-	@OneToMany(mappedBy = "employeeL", cascade = CascadeType.ALL)
-	
+	@OneToMany(mappedBy = "employeeL")
+	@JsonBackReference
 	private List<LeaveEmp> leaveRecords;
 
 

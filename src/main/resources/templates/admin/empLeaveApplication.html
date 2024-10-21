@@ -24,41 +24,75 @@
 <body>
 	<div class="container-scroller">
 		
-		<nav th:replace="admin/index ::navbar1"></nav>
+		<nav th:replace="admin/empIndex ::navbar1"></nav>
 		
 		<div class="container-fluid page-body-wrapper" >
-		<div th:replace="admin/index ::sidebar"></div>
+		<div th:replace="admin/empIndex ::sidebar"></div>
 		
-		<nav th:replace="admin/index ::navbar2"></nav>
+		<nav th:replace="admin/empIndex ::navbar2"></nav>
 		
 		<div class="main-panel">
 			<div class="content-wrapper">
-			<div class="col-lg-12 grid-margin stretch-card">
-				<div class="card">
-					<div class="card-body">
-						<h4 class="card-title">Daily Employee Attendance</h4>
-						
-						<div class="table-responsive pt-3">
-							<table class="table table-bordered">
-								<thead>
-									<tr>
-										<th> Employee Id</th>
-										<th> First Name </th>
-										<th> Last Name </th>
-										<th> Date </th>
-										<th> Check In </th>
-										<th> Check Out </th>
-										<th> Total Hours </th>
-									</tr>
-								</thead>
-								<tbody id="empAttendance">
-									
-								</tbody>
-							</table>
+			<div class="row">
+				<div class="col-md-4 grid-margin stretch-card">
+					<div class="card">
+						<div class="card-body">
+							<h4 class="card-title">Apply for Leave</h4>
+				
+							<form class="forms-sample">
+								<div class="form-group">
+									<label for="exampleInputUsername1">From:</label>
+									<input type="date" class="form-control" id="exampleInputFrom1" placeholder="From">
+								</div>
+								<div class="form-group">
+									<label for="exampleInputEmail1">To:</label>
+									<input type="date" class="form-control" id="exampleInputTo1" placeholder="To">
+								</div>
+								<div class="form-group">
+									<label for="exampleInputPassword1">Leave type:</label>
+									<input type="text" class="form-control" id="exampleInputType1" placeholder="Type">
+								</div>
+								<div class="form-group">
+									<label for="exampleInputConfirmPassword1">Leave Subject:</label>
+									<input type="text" class="form-control" id="exampleInputConfirmSubject1" placeholder="Subject">
+								</div>
+								<div class="form-group">
+									<label for="exampleInputConfirmPassword1">Leave Reason:</label>
+									<input type="text" class="form-control" id="exampleInputConfirmReason1" placeholder="Reason">
+								</div>
+								<button type="submit" class="btn btn-primary mr-2">Submit</button>
+								<button class="btn btn-light">Cancel</button>
+							</form>
 						</div>
 					</div>
 				</div>
-			</div>
+				
+				<div class="col-lg-8 grid-margin stretch-card">
+					<div class="card">
+						<div class="card-body">
+							<h4 class="card-title">Applied Leaves</h4>
+							
+							<div class="table-responsive">
+								<table class="table table-hover">
+									<thead>
+										<tr>
+											<th>Subject</th>
+											<th>Date</th>
+											<th>Leave Type</th>
+											<th>Total Leave Days</th>
+											<th>Reason</th>
+											<th>Status</th>
+										</tr>
+									</thead>
+									<tbody>
+										
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+				</div>
 			</div>
 		</div>
 		</div>
@@ -92,7 +126,7 @@
 	 <!-- Custom js for this page-->
 	 <script src="admin/js/dashboard.js"></script>
 	 <script src="admin/js/Chart.roundedBarCharts.js"></script>
-	 <script src="admin/js/empAttendanceJs.js"></script>
+	 <script src="admin/js/empScript.js"></script>
 
 	 <!-- End custom js for this page-->
 	</body>

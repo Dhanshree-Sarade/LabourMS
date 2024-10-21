@@ -35,6 +35,7 @@ public class EmpCheckService {
         return empCheckRepo.save(checkInRecord);
     }
 
+
     public EmpCheckInCheckOut checkOut(String id) {
         EmployeeData employee = employeeDataRepo.findById(id)
                 .orElseThrow(() -> new RuntimeException("Employee not found"));
@@ -50,6 +51,10 @@ public class EmpCheckService {
 
     public List<EmpCheckInCheckOut> getAllRecords() {
         return empCheckRepo.findAll();
+    }
+
+    public List<EmpCheckInCheckOut> getRecordsByEmpId(Long empId) {
+        return empCheckRepo.findByEmployeeId(empId);
     }
 
     

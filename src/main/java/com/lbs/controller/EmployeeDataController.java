@@ -24,6 +24,8 @@ import com.lbs.entities.Admin;
 import com.lbs.entities.EmployeeData;
 import com.lbs.services.EmployeeDataService;
 
+import jakarta.servlet.http.HttpSession;
+
 @RestController
 public class EmployeeDataController {
 	
@@ -58,6 +60,7 @@ public class EmployeeDataController {
         }
     }
 
+	
 
 
     
@@ -101,6 +104,7 @@ public class EmployeeDataController {
     
     
     
+
      
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody EmployeeData employeeData) {
@@ -116,7 +120,11 @@ public class EmployeeDataController {
             response.put("email", employee.getEmail()); 
            
             return ResponseEntity.ok(response);
-        } else {         
+        }         
+    
+   
+         else {
+
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials");
         }
     }

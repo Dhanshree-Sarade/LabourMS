@@ -51,4 +51,23 @@ public class PageController {
 			return "admin/empIndex";
 	}
 	
+	@GetMapping("/attendance")
+		public String personalAttendance() {
+			return "admin/personalAttendance";
+	}
+	
+	@GetMapping("/empLeave")
+		public String leaveRegister() {
+			return "admin/empLeaveApplication";
+	}
+	
+	@GetMapping("/empProfile")
+	public String empProfile() {
+		return "admin/empProfile";
+	}
+	
+	@GetMapping("/empSalary")
+	public String empSalary() {
+		return "admin/empSalary";
+	}
 }

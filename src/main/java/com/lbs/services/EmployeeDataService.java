@@ -59,7 +59,6 @@ public class EmployeeDataService {
 
 	public EmployeeData findId(String id) {
 		return r.findById(id).orElse(null);
-
 	}
 
 
@@ -113,15 +112,15 @@ public class EmployeeDataService {
        
         return false;
     }
-	 
-	
-
-    
-		
-	
 
 	
-	
+	public EmployeeData getEmployeeByEmail(String email) {
+	    
+	    EmployeeData employee = r.findByEmail(email);
+
+	    	    return employee;
+	}
+
     
 
 }
