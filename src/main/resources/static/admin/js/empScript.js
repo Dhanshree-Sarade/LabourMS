@@ -118,7 +118,7 @@ function showEmployeeAttendance(id) {
     $.ajax({
         type: "GET",
         contentType: "application/json",
-        url: '/records/' + id, // Append the employee ID to the URL
+        url: '/api/attendance/records/' + id, // Append the employee ID to the URL
         dataType: 'json',
         success: function(data) {
             var d = '';

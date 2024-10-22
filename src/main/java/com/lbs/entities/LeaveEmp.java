@@ -15,12 +15,11 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "leave_table")
-
-
 public class LeaveEmp {
 		@Id
 		@GeneratedValue(strategy=GenerationType.IDENTITY)
 		private long aId;
+		
 		@ManyToOne
 		@JsonManagedReference
 	    @JoinColumn(name = "id")

@@ -39,18 +39,18 @@
 						<div class="card-body">
 							<h4 class="card-title">Apply for Leave</h4>
 				
-							<form class="forms-sample">
+							<form class="forms-sample" id="empLeaveForm">
 								<div class="form-group">
-									<label for="exampleInputUsername1">From:</label>
+									<label for="exampleInputFrom1">From:</label>
 									<input type="date" class="form-control" id="exampleInputFrom1" placeholder="From">
 								</div>
 								<div class="form-group">
-									<label for="exampleInputEmail1">To:</label>
+									<label for="exampleInputTo1">To:</label>
 									<input type="date" class="form-control" id="exampleInputTo1" placeholder="To">
 								</div>
 								<div class="form-group">
 								    <label for="leaveType">Leave Type:</label>
-								    <select class="form-control" id="leaveType">
+								    <select class="form-control" id="leaveType" name="leaveType">
 								        <option value="">Select Leave Type</option>
 								        <option value="casual">Casual Leave</option>
 								        <option value="emergency">Emergency Leave</option>
@@ -58,14 +58,18 @@
 								    </select>
 								</div>
 								<div class="form-group">
-									<label for="exampleInputConfirmPassword1">Leave Subject:</label>
-									<input type="text" class="form-control" id="exampleInputConfirmSubject1" placeholder="Subject">
+									<label for="exampleInputLeaveSubject1">Leave Subject:</label>
+									<input type="text" class="form-control" id="exampleInputLeaveSubject1" placeholder="Subject">
 								</div>
 								<div class="form-group">
-									<label for="exampleInputConfirmPassword1">Leave Reason:</label>
-									<input type="text" class="form-control" id="exampleInputConfirmReason1" placeholder="Reason">
+									<label for="exampleInputLeaveReason1">Leave Reason:</label>
+									<input type="text" class="form-control" id="exampleInputReason1" placeholder="Reason">
 								</div>
-								<button type="submit" class="btn btn-primary mr-2">Submit</button>
+								<div class="form-group">
+									<label for="exampleInputLeaveStatus1" style="display: none;">Status:</label>
+									<input type="hidden" class="form-control" id="exampleInputLeaveStatus1" placeholder="Status">
+								</div>
+								<button type="submit" class="btn btn-primary mr-2" id="empLeave">Submit</button>
 								<button class="btn btn-light">Cancel</button>
 							</form>
 						</div>
@@ -81,15 +85,15 @@
 								<table class="table table-hover">
 									<thead>
 										<tr>
-											<th>Subject</th>
 											<th>Date</th>
+											<th>Subject</th>
 											<th>Leave Type</th>
 											<th>Total Leave Days</th>
 											<th>Reason</th>
 											<th>Status</th>
 										</tr>
 									</thead>
-									<tbody>
+									<tbody id="empLeaveTable">
 										
 									</tbody>
 								</table>
@@ -99,6 +103,8 @@
 				</div>
 				</div>
 			</div>
+			
+			<footer th:replace="admin/empIndex ::footer"></footer>
 		</div>
 		</div>
 	</div>
@@ -131,7 +137,7 @@
 	 <!-- Custom js for this page-->
 	 <script src="admin/js/dashboard.js"></script>
 	 <script src="admin/js/Chart.roundedBarCharts.js"></script>
-	 <script src="admin/js/empScript.js"></script>
+	 <script src="admin/js/empLeaveAppJs.js"></script>
 
 	 <!-- End custom js for this page-->
 	</body>
