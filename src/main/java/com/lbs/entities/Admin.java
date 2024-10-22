@@ -9,7 +9,7 @@ import jakarta.persistence.Table;
 @Table(name="Admin")
 public class Admin {
 	@Id
-	private Long id;
+	private Long adminId;
     @Column(name="username")
     private String username;
     @Column(name="password")
@@ -20,19 +20,19 @@ public class Admin {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Admin(Long id, String username, String password) {
+	public Admin(Long adminId, String username, String password) {
 		super();
-		this.id = id;
+		this.adminId = adminId;
 		this.username = username;
 		this.password = password;
 	}
 
-	public Long getId() {
-		return id;
+	public Long getAdminId() {
+		return adminId;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public void setAdminId(Long adminId) {
+		this.adminId = adminId;
 	}
 
 	public String getUsername() {
@@ -53,15 +53,8 @@ public class Admin {
 
 	@Override
 	public String toString() {
-		return "Admin [id=" + id + ", username=" + username + ", password=" + password + "]";
+		return "Admin [adminId=" + adminId + ", username=" + username + ", password=" + password + "]";
 	}
-	
-	
-    
-    //wsdfgfg
-    
-//sdf
 
-	//okokokok
 	
 }

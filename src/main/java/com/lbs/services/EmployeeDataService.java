@@ -1,6 +1,7 @@
 package com.lbs.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -120,6 +121,13 @@ public class EmployeeDataService {
 
 	    	    return employee;
 	}
+	public EmployeeData findEmployeeById(String empId) {
+	    return r.findById(empId).orElse(null);
+	}
+
+
+
+	
 
     
 

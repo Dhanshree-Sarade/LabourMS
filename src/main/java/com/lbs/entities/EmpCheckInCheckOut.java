@@ -5,6 +5,7 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 //add so
 @Entity
 @Table(name="Employee_Details_CheckInOut")
@@ -15,7 +16,7 @@ public class EmpCheckInCheckOut {
     private long cId;
 
     @ManyToOne
-    @JsonBackReference
+    @JsonManagedReference
     @JoinColumn(name = "id", nullable = false)  
     private EmployeeData employee;  
 

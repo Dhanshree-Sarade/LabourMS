@@ -27,6 +27,17 @@ public class EmployeeData {
 	private String fName;
 	@Column(name="Last_Name")
 	private String lName;
+	
+	@Column(name="Birth_Date")
+	private LocalDate birthDate;
+	@Column(name="gender")
+	private String gender;
+	@Column(name="Blood_Group")
+    private String bloodGroup;
+    @Column(name="Marital_Status")
+    private String maritalStatus;
+
+
 	@Column(name="Address")
 	private String address;
 	@Column(name="Mobile_No")
@@ -35,14 +46,32 @@ public class EmployeeData {
 	private String email;
 	@Column(name="Password")
     private String password;
+	
+	@Column(name="Qualification")
+	private String qualification;
 	@Column(name="Designation")
     private String designation;
 	@Column(name="Joining_Date")
 	@JsonFormat(pattern = "yyyy-MM-dd")
-
 	private LocalDate joining_date;
+	@Column(name="Resigning_Date")
+    private LocalDate resigning_date;
 	@Column(name="Salary")
     private Double salary;
+    @Column(name="Bank_Account_No")
+    private String bankAccountNo;
+
+    @Column(name="Bank_Name")
+    private String bankName;
+
+	@Column(name="IFSC_Code")
+    private String ifscCode;
+
+    @Column(name="Account_Type")
+    private String accountType;
+    
+    
+
 	@Column(name="Status")
 	private String status;
 	

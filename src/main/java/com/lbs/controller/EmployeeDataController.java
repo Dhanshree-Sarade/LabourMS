@@ -127,28 +127,25 @@ public class EmployeeDataController {
     
     
 
-     
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody EmployeeData employeeData) {
-        boolean isAuthenticated = ser.validateEmployee(employeeData.getEmail(), employeeData.getPassword());
+    public ResponseEntity<?> login(@RequestParam String email, @RequestParam String password) {
+        boolean isAuthenticated = ser.validateEmployee(email, password);
+        
         if (isAuthenticated) {
             // Fetch the employee data from the database
-            EmployeeData employee = ser.findEmployeeByEmail(employeeData.getEmail());
+            EmployeeData employee = ser.findEmployeeByEmail(email);
 
             // Prepare the response with employee details
             Map<String, Object> response = new HashMap<>();
-            response.put("redirectUrl", "/empIndex"); 
-            response.put("id", employee.getId()); 
-            response.put("email", employee.getEmail()); 
-           
-            return ResponseEntity.ok(response);
-        }         
-    
-   
-         else {
+            response.put("redirectUrl", "/empIndex");
+            response.put("id", employee.getId());
+            response.put("email", employee.getEmail());
 
+            return ResponseEntity.ok(response);
+        } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials");
         }
     }
+
 
 }

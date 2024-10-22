@@ -1,12 +1,14 @@
 package com.lbs.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import com.lbs.entities.EmpCheckInCheckOut;
 import com.lbs.entities.EmployeeData;
 import com.lbs.services.EmpCheckService;
+import com.lbs.services.EmployeeDataService;
 
 import java.util.List;
 
@@ -17,6 +19,8 @@ public class EmpCheckController {
 
     @Autowired
     private EmpCheckService empCheckService;
+    @Autowired 
+	 private EmployeeDataService ser;
 
       
     
@@ -43,11 +47,16 @@ public class EmpCheckController {
         return ResponseEntity.ok(records);
     }
     
-    // Controller method to get records by Employee ID
     @GetMapping("/records/{empId}")
-    public ResponseEntity<List<EmpCheckInCheckOut>> getRecordsByEmpId(@PathVariable EmployeeData emp) {
-        List<EmpCheckInCheckOut> records = empCheckService.getRecordsByEmpId(emp);
+    public ResponseEntity<List<EmpCheckInCheckOut>> getRecordsByEmpId(@PathVariable String empId) {
+        EmployeeData emp = ser.findEmployeeById(empId); // Fetch the employee using ID
+        if (emp == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null); // Handle case when employee is not found
+        }
+        List<EmpCheckInCheckOut> records = empCheckService.getRecordsByEmpId(empId); // Pass the empId
         return ResponseEntity.ok(records);
     }
 
+    
+    
 }
