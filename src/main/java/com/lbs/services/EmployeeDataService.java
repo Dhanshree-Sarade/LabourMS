@@ -32,15 +32,14 @@ public class EmployeeDataService {
         }
 
 	
-	public EmployeeData createEmp(EmployeeData employeeData) {
-		if (r.findByEmail(employeeData.getEmail()) != null) {
-	        throw new ResponseStatusException(HttpStatus.CONFLICT, "Email already exists");
-	    }
+    public EmployeeData createEmp(EmployeeData employeeData) {
+        if (r.findByEmail(employeeData.getEmail()) != null) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "Email already exists");
+        }
 
-		employeeData.setId(generateId()); 
-		return  r.save(employeeData);
-		
-	}
+        employeeData.setId(generateId());
+        return r.save(employeeData);
+    }
 	
 	
 
