@@ -66,6 +66,7 @@ public class EmpLeaveController {
         List<LeaveEmp> leaveList = empL.getLeavesByEmployee(empId);
         return new ResponseEntity<>(leaveList, HttpStatus.OK);
     }
+    
     @PutMapping("/admin/leave/status/{leaveId}")
     public ResponseEntity<LeaveEmp> updateLeaveStatus(
             @PathVariable Long leaveId, 

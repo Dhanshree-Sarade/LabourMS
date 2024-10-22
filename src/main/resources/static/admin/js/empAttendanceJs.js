@@ -3,10 +3,11 @@ $(document).ready(function() {
 });
 
 function showEmployeeAttendance() {
+	alert("Loading...");
     $.ajax({
         type: "GET",
         contentType: "application/json",
-        url: '/records',
+        url: '/api/attendance/records',
         dataType: 'json',
         success: function(data) {
             var d = '';

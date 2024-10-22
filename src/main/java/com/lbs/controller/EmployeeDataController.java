@@ -45,13 +45,13 @@ public class EmployeeDataController {
     }
 	
 	@DeleteMapping("/employees/{id}")
-    public ResponseEntity<Void> deleteEmpData(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteEmpData(@PathVariable String id) {
         ser.deleteEmp(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 	
 	@GetMapping("/employees/{id}")
-	public ResponseEntity<EmployeeData> showDetailById(@PathVariable("id") Long id) {
+	public ResponseEntity<EmployeeData> showDetailById(@PathVariable("id") String id) {
 	    EmployeeData employee = ser.findId(id);
 	    if (employee != null) {
 	        return new ResponseEntity<>(employee, HttpStatus.OK);
@@ -69,7 +69,7 @@ public class EmployeeDataController {
     
     @PutMapping("/employees")
     public ResponseEntity<EmployeeData> updateEmpData(
-            @RequestParam("id") long id,
+            @RequestParam("id") String id,
             @RequestParam("fName") String fName,
             @RequestParam("lName") String lName,
             @RequestParam("address") String address,
@@ -126,7 +126,7 @@ public class EmployeeDataController {
 //    }
     
     @PostMapping("/login")
-    @ResponseBody
+    //@ResponseBody
     public ResponseEntity<?> login(@RequestBody EmployeeData employeeData, HttpSession session) {
         EmployeeData employee = ser.getEmployeeByEmail(employeeData.getEmail());
 

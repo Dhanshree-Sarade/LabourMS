@@ -2,6 +2,7 @@ package com.lbs.entities;
 import java.time.LocalDate;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -14,14 +15,13 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "leave_table")
-
-
 public class LeaveEmp {
 		@Id
 		@GeneratedValue(strategy=GenerationType.IDENTITY)
 		private long aId;
+		
 		@ManyToOne
-		@JsonBackReference
+		@JsonManagedReference
 	    @JoinColumn(name = "id")
 	    private EmployeeData employeeL;
 		@Column(name="`current_date`")
