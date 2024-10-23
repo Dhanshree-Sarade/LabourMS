@@ -1,6 +1,7 @@
 package com.lbs.entities;
 
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
@@ -14,6 +15,7 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Lob;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
@@ -69,6 +71,10 @@ public class EmployeeData {
 
     @Column(name="Account_Type")
     private String accountType;
+   
+    @Column(name="DocumentName")
+    private String documentName;
+
     
     
 
@@ -86,38 +92,69 @@ public class EmployeeData {
 	private List<LeaveEmp> leaveRecords;
 
 
+	
+
+
+	
+
+	public EmployeeData(String id) {
+		this.id=id;
+	}
+
+
+
+
+
+
+
+	
+
+
 	public EmployeeData() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
 
-	public EmployeeData(String id, String fName, String lName, String address, String mobile_no, String email,
-			String password, String designation, LocalDate joining_date, Double salary, String status,
+	public EmployeeData(String id, String fName, String lName, LocalDate birthDate, String gender, String bloodGroup,
+			String maritalStatus, String address, String mobile_no, String email, String password, String qualification,
+			String designation, LocalDate joining_date, LocalDate resigning_date, Double salary, String bankAccountNo,
+			String bankName, String ifscCode, String accountType, String documentName, String status,
 			List<EmpCheckInCheckOut> checkInCheckOutRecords, List<LeaveEmp> leaveRecords) {
 		super();
 		this.id = id;
 		this.fName = fName;
 		this.lName = lName;
+		this.birthDate = birthDate;
+		this.gender = gender;
+		this.bloodGroup = bloodGroup;
+		this.maritalStatus = maritalStatus;
 		this.address = address;
 		this.mobile_no = mobile_no;
 		this.email = email;
 		this.password = password;
+		this.qualification = qualification;
 		this.designation = designation;
 		this.joining_date = joining_date;
+		this.resigning_date = resigning_date;
 		this.salary = salary;
+		this.bankAccountNo = bankAccountNo;
+		this.bankName = bankName;
+		this.ifscCode = ifscCode;
+		this.accountType = accountType;
+		this.documentName = documentName;
 		this.status = status;
 		this.checkInCheckOutRecords = checkInCheckOutRecords;
 		this.leaveRecords = leaveRecords;
 	}
 
 
-	
 
 
-	public EmployeeData(String id) {
-		this.id=id;
-	}
+
+
+
+
 
 
 	public String getId() {
@@ -125,9 +162,19 @@ public class EmployeeData {
 	}
 
 
+
+
+
+
+
 	public void setId(String id) {
 		this.id = id;
 	}
+
+
+
+
+
 
 
 	public String getfName() {
@@ -135,9 +182,19 @@ public class EmployeeData {
 	}
 
 
+
+
+
+
+
 	public void setfName(String fName) {
 		this.fName = fName;
 	}
+
+
+
+
+
 
 
 	public String getlName() {
@@ -145,9 +202,99 @@ public class EmployeeData {
 	}
 
 
+
+
+
+
+
 	public void setlName(String lName) {
 		this.lName = lName;
 	}
+
+
+
+
+
+
+
+	public LocalDate getBirthDate() {
+		return birthDate;
+	}
+
+
+
+
+
+
+
+	public void setBirthDate(LocalDate birthDate) {
+		this.birthDate = birthDate;
+	}
+
+
+
+
+
+
+
+	public String getGender() {
+		return gender;
+	}
+
+
+
+
+
+
+
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+
+
+
+
+
+
+
+	public String getBloodGroup() {
+		return bloodGroup;
+	}
+
+
+
+
+
+
+
+	public void setBloodGroup(String bloodGroup) {
+		this.bloodGroup = bloodGroup;
+	}
+
+
+
+
+
+
+
+	public String getMaritalStatus() {
+		return maritalStatus;
+	}
+
+
+
+
+
+
+
+	public void setMaritalStatus(String maritalStatus) {
+		this.maritalStatus = maritalStatus;
+	}
+
+
+
+
+
 
 
 	public String getAddress() {
@@ -155,9 +302,19 @@ public class EmployeeData {
 	}
 
 
+
+
+
+
+
 	public void setAddress(String address) {
 		this.address = address;
 	}
+
+
+
+
+
 
 
 	public String getMobile_no() {
@@ -165,9 +322,19 @@ public class EmployeeData {
 	}
 
 
+
+
+
+
+
 	public void setMobile_no(String mobile_no) {
 		this.mobile_no = mobile_no;
 	}
+
+
+
+
+
 
 
 	public String getEmail() {
@@ -175,9 +342,19 @@ public class EmployeeData {
 	}
 
 
+
+
+
+
+
 	public void setEmail(String email) {
 		this.email = email;
 	}
+
+
+
+
+
 
 
 	public String getPassword() {
@@ -185,9 +362,39 @@ public class EmployeeData {
 	}
 
 
+
+
+
+
+
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
+
+
+
+
+
+
+	public String getQualification() {
+		return qualification;
+	}
+
+
+
+
+
+
+
+	public void setQualification(String qualification) {
+		this.qualification = qualification;
+	}
+
+
+
+
+
 
 
 	public String getDesignation() {
@@ -195,9 +402,19 @@ public class EmployeeData {
 	}
 
 
+
+
+
+
+
 	public void setDesignation(String designation) {
 		this.designation = designation;
 	}
+
+
+
+
+
 
 
 	public LocalDate getJoining_date() {
@@ -205,9 +422,39 @@ public class EmployeeData {
 	}
 
 
+
+
+
+
+
 	public void setJoining_date(LocalDate joining_date) {
 		this.joining_date = joining_date;
 	}
+
+
+
+
+
+
+
+	public LocalDate getResigning_date() {
+		return resigning_date;
+	}
+
+
+
+
+
+
+
+	public void setResigning_date(LocalDate resigning_date) {
+		this.resigning_date = resigning_date;
+	}
+
+
+
+
+
 
 
 	public Double getSalary() {
@@ -215,9 +462,99 @@ public class EmployeeData {
 	}
 
 
+
+
+
+
+
 	public void setSalary(Double salary) {
 		this.salary = salary;
 	}
+
+
+
+
+
+
+
+	public String getBankAccountNo() {
+		return bankAccountNo;
+	}
+
+
+
+
+
+
+
+	public void setBankAccountNo(String bankAccountNo) {
+		this.bankAccountNo = bankAccountNo;
+	}
+
+
+
+
+
+
+
+	public String getBankName() {
+		return bankName;
+	}
+
+
+
+
+
+
+
+	public void setBankName(String bankName) {
+		this.bankName = bankName;
+	}
+
+
+
+
+
+
+
+	public String getIfscCode() {
+		return ifscCode;
+	}
+
+
+
+
+
+
+
+	public void setIfscCode(String ifscCode) {
+		this.ifscCode = ifscCode;
+	}
+
+
+
+
+
+
+
+	public String getAccountType() {
+		return accountType;
+	}
+
+
+
+
+
+
+
+	public void setAccountType(String accountType) {
+		this.accountType = accountType;
+	}
+
+
+
+
+
 
 
 	public String getStatus() {
@@ -225,9 +562,19 @@ public class EmployeeData {
 	}
 
 
+
+
+
+
+
 	public void setStatus(String status) {
 		this.status = status;
 	}
+
+
+
+
+
 
 
 	public List<EmpCheckInCheckOut> getCheckInCheckOutRecords() {
@@ -235,9 +582,19 @@ public class EmployeeData {
 	}
 
 
+
+
+
+
+
 	public void setCheckInCheckOutRecords(List<EmpCheckInCheckOut> checkInCheckOutRecords) {
 		this.checkInCheckOutRecords = checkInCheckOutRecords;
 	}
+
+
+
+
+
 
 
 	public List<LeaveEmp> getLeaveRecords() {
@@ -245,18 +602,65 @@ public class EmployeeData {
 	}
 
 
+
+
+
+
+
 	public void setLeaveRecords(List<LeaveEmp> leaveRecords) {
 		this.leaveRecords = leaveRecords;
 	}
 
 
+
+
+
+
+
+
+
+
+
+	public String getDocumentName() {
+		return documentName;
+	}
+
+
+	public void setDocumentName(String documentName) {
+		this.documentName = documentName;
+	}
+
+
+
+
+
+
+
+
+
+
+
 	@Override
 	public String toString() {
-		return "EmployeeData [id=" + id + ", fName=" + fName + ", lName=" + lName + ", address=" + address
-				+ ", mobile_no=" + mobile_no + ", email=" + email + ", password=" + password + ", designation="
-				+ designation + ", joining_date=" + joining_date + ", salary=" + salary + ", status=" + status
-				+ ", checkInCheckOutRecords=" + checkInCheckOutRecords + ", leaveRecords=" + leaveRecords + "]";
+		return "EmployeeData [id=" + id + ", fName=" + fName + ", lName=" + lName + ", birthDate=" + birthDate
+				+ ", gender=" + gender + ", bloodGroup=" + bloodGroup + ", maritalStatus=" + maritalStatus
+				+ ", address=" + address + ", mobile_no=" + mobile_no + ", email=" + email + ", password=" + password
+				+ ", qualification=" + qualification + ", designation=" + designation + ", joining_date=" + joining_date
+				+ ", resigning_date=" + resigning_date + ", salary=" + salary + ", bankAccountNo=" + bankAccountNo
+				+ ", bankName=" + bankName + ", ifscCode=" + ifscCode + ", accountType=" + accountType
+				+ ", documentName=" + documentName + ", status=" + status + ", checkInCheckOutRecords="
+				+ checkInCheckOutRecords + ", leaveRecords=" + leaveRecords + "]";
 	}
+
     
 
+
+
+
+
+
+
+
+	
+	
 }
