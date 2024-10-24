@@ -1,17 +1,24 @@
   package com.lbs.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import com.lbs.entities.EmpCheckInCheckOut;
 import com.lbs.entities.EmployeeData;
 import com.lbs.repository.EmpCheckRepo;
 import com.lbs.repository.EmpolyeeDataRepo;
 
+import java.time.Duration;
+import java.time.Instant;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.List;
 
 @Service
 public class EmpCheckService {
+	
+
 
     @Autowired
     private EmpCheckRepo empCheckRepo;
@@ -31,7 +38,7 @@ public class EmpCheckService {
 
         EmpCheckInCheckOut checkInRecord = new EmpCheckInCheckOut();
         checkInRecord.setEmployee(employee);
-        checkInRecord.setCheckIn(LocalDateTime.now());
+        checkInRecord.setCheckIn(ZonedDateTime.ofInstant(Instant.now(), ZoneId.systemDefault()));
         return empCheckRepo.save(checkInRecord);
     }
 
@@ -45,7 +52,7 @@ public class EmpCheckService {
             throw new RuntimeException("Employee hasn't checked in yet or already checked out.");
         }
 
-        checkInRecord.setCheckOut(LocalDateTime.now());
+        checkInRecord.setCheckOut(ZonedDateTime.ofInstant(Instant.now(), ZoneId.systemDefault()));
         return empCheckRepo.save(checkInRecord);
     }
 
@@ -63,6 +70,35 @@ public class EmpCheckService {
 		
 	}
 
+
+	public double calculateSalary(String id) {
+		EmployeeData employee = employeeDataRepo.findById(id)
+                .orElseThrow(() -> new RuntimeException("Employee not found"));
+
+        // Fetch all attendance records for the employee
+        List<EmpCheckInCheckOut> attendanceRecords = empCheckRepo.findByEmployee_Id(id);
+
+        // Calculate total hours worked
+        double totalHoursWorked = attendanceRecords.stream()
+                .mapToDouble(record -> {
+                    if (record.getCheckOut() != null) {
+                        Duration duration = Duration.between(record.getCheckIn(), record.getCheckOut());
+                        return duration.toHours() + duration.toMinutesPart() / 60.0;
+                    }
+                    return 0;
+                }).sum();
+
+        // Calculate hourly wage
+        double hourlyWage = employee.getSalary() / 160;
+
+        // Calculate salary based on total hours worked
+        double totalSalaryForWorkedHours = totalHoursWorked * hourlyWage;
+
+        return totalSalaryForWorkedHours;
+    
+
+	}
+    
 
 
     

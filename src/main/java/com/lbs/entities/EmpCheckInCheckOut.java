@@ -3,6 +3,7 @@ package com.lbs.entities;
 import jakarta.persistence.*;
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -21,10 +22,10 @@ public class EmpCheckInCheckOut {
     private EmployeeData employee;  
 
     @Column(name="Check_In", nullable = false)
-    private LocalDateTime checkIn;
+    private ZonedDateTime checkIn;
 
     @Column(name="Check_Out")
-    private LocalDateTime checkOut;
+    private ZonedDateTime checkOut;
 
     @Column(name="Total_Hrs")
     private String totalHrs;
@@ -41,8 +42,9 @@ public class EmpCheckInCheckOut {
         }
         return "0 hrs 0 min 0 sec";
     }
-
-    public void setCheckOut(LocalDateTime checkOut) {
+    
+    
+    public void setCheckOut(ZonedDateTime checkOut) {
         this.checkOut = checkOut;
         if (checkOut != null) {
             Duration duration = Duration.between(checkIn, checkOut);
@@ -53,13 +55,46 @@ public class EmpCheckInCheckOut {
         }
     }
 
-	public EmpCheckInCheckOut() {
-		super();
-		// TODO Auto-generated constructor stub
+	
+
+
+	public long getcId() {
+		return cId;
 	}
 
+	public void setcId(long cId) {
+		this.cId = cId;
+	}
 
-	public EmpCheckInCheckOut(long cId, EmployeeData employee, LocalDateTime checkIn, LocalDateTime checkOut,
+	public EmployeeData getEmployee() {
+		return employee;
+	}
+
+	public void setEmployee(EmployeeData employee) {
+		this.employee = employee;
+	}
+
+	public ZonedDateTime getCheckIn() {
+		return checkIn;
+	}
+
+	public void setCheckIn(ZonedDateTime checkIn) {
+		this.checkIn = checkIn;
+	}
+
+	public String getTotalHrs() {
+		return totalHrs;
+	}
+
+	public void setTotalHrs(String totalHrs) {
+		this.totalHrs = totalHrs;
+	}
+
+	public ZonedDateTime getCheckOut() {
+		return checkOut;
+	}
+
+	public EmpCheckInCheckOut(long cId, EmployeeData employee, ZonedDateTime checkIn, ZonedDateTime checkOut,
 			String totalHrs) {
 		super();
 		this.cId = cId;
@@ -69,51 +104,10 @@ public class EmpCheckInCheckOut {
 		this.totalHrs = totalHrs;
 	}
 
-
-	public long getcId() {
-		return cId;
+	public EmpCheckInCheckOut() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
-
-
-	public void setcId(long cId) {
-		this.cId = cId;
-	}
-
-
-	public EmployeeData getEmployee() {
-		return employee;
-	}
-
-
-	public void setEmployee(EmployeeData employee) {
-		this.employee = employee;
-	}
-
-
-	public LocalDateTime getCheckIn() {
-		return checkIn;
-	}
-
-
-	public void setCheckIn(LocalDateTime checkIn) {
-		this.checkIn = checkIn;
-	}
-
-
-	public String getTotalHrs() {
-		return totalHrs;
-	}
-
-
-	public void setTotalHrs(String totalHrs) {
-		this.totalHrs = totalHrs;
-	}
-
-
-	public LocalDateTime getCheckOut() {
-		return checkOut;
-	}
-
 
 	@Override
 	public String toString() {
