@@ -1,5 +1,6 @@
 package com.lbs.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.HashMap;
@@ -34,34 +35,7 @@ public class EmployeeDataController {
 	
 	@Autowired 
 	 private EmployeeDataService ser;
-	/*  
-	@PostMapping("/employees")
-	public ResponseEntity<EmployeeData> createEmp(  @RequestParam String fName,
-	        @RequestParam String lName,
-	        @RequestParam String address,
-	        @RequestParam String mobile_no,
-	        @RequestParam String email,
-	        @RequestParam String password,
-	        @RequestParam String designation,
-	        @RequestParam @JsonFormat(pattern = "yyyy-MM-dd") LocalDate joining_date,
-	        @RequestParam Double salary,
-	        @RequestParam String status) {
-		EmployeeData employeeData = new EmployeeData();
-	    employeeData.setfName(fName);
-	    employeeData.setlName(lName);
-	    employeeData.setAddress(address);
-	    employeeData.setMobile_no(mobile_no);
-	    employeeData.setEmail(email);
-	    employeeData.setPassword(password);
-	    employeeData.setDesignation(designation);
-	    employeeData.setJoining_date(joining_date);
-	    employeeData.setSalary(salary);
-	    employeeData.setStatus(status);
-		
-        EmployeeData createdEmployee = ser.createEmp(employeeData);
-        return new ResponseEntity<>(createdEmployee, HttpStatus.CREATED);
-    }
-	*/
+	
 	@PostMapping("/employees")
 	public ResponseEntity<EmployeeData> createEmp(
 	        @RequestParam String fName,
@@ -72,8 +46,10 @@ public class EmployeeDataController {
 	        @RequestParam String password,
 	        @RequestParam String designation,
 	        @RequestParam @JsonFormat(pattern = "yyyy-MM-dd") LocalDate joining_date,
+	        @RequestParam(required = false) @JsonFormat(pattern = "yyyy-MM-dd") LocalDate resigning_date,
+
 	        @RequestParam Double salary,
-	        @RequestParam String status,
+	        
 	        @RequestParam(required = false) @JsonFormat(pattern = "yyyy-MM-dd") LocalDate birthDate,
 	        @RequestParam(required = false) String gender,
 	        @RequestParam(required = false) String bloodGroup,
@@ -83,40 +59,68 @@ public class EmployeeDataController {
 	        @RequestParam(required = false) String bankName,
 	        @RequestParam(required = false) String ifscCode,
 	        @RequestParam(required = false) String accountType,
-	        @RequestParam("file") MultipartFile file // Accept file as part of the request
+	        @RequestParam("file") MultipartFile file, // Accept file as part of the request
+	        @RequestParam(required = false) String status
+
 	) {
 	    EmployeeData employeeData = new EmployeeData();
-		// Set all other fields
-		employeeData.setfName(fName);
-		employeeData.setlName(lName);
-		employeeData.setAddress(address);
-		employeeData.setMobile_no(mobile_no);
-		employeeData.setEmail(email);
-		employeeData.setPassword(password);
-		employeeData.setDesignation(designation);
-		employeeData.setJoining_date(joining_date);
-		employeeData.setSalary(salary);
-		employeeData.setStatus(status);
-		employeeData.setBirthDate(birthDate);
-		employeeData.setGender(gender);
-		employeeData.setBloodGroup(bloodGroup);
-		employeeData.setMaritalStatus(maritalStatus);
-		employeeData.setQualification(qualification);
-		employeeData.setBankAccountNo(bankAccountNo);
-		employeeData.setBankName(bankName);
-		employeeData.setIfscCode(ifscCode);
-		employeeData.setAccountType(accountType);
+	    // Set all other fields
+	    employeeData.setfName(fName);
+	    employeeData.setlName(lName);
+	    employeeData.setAddress(address);
+	    employeeData.setMobile_no(mobile_no);
+	    employeeData.setEmail(email);
+	    employeeData.setPassword(password);
+	    employeeData.setDesignation(designation);
+	    employeeData.setJoining_date(joining_date);
+	    employeeData.setSalary(salary);
+	    employeeData.setResigning_date( resigning_date);    
+	    employeeData.setBirthDate(birthDate);
+	    employeeData.setGender(gender);
+	    employeeData.setBloodGroup(bloodGroup);
+	    employeeData.setMaritalStatus(maritalStatus);
+	    employeeData.setQualification(qualification);
+	    employeeData.setBankAccountNo(bankAccountNo);
+	    employeeData.setBankName(bankName);
+	    employeeData.setIfscCode(ifscCode);
+	    employeeData.setAccountType(accountType);
 
-		// Convert the uploaded file to a byte array and store the file name
-      
-		String documentName = file.getOriginalFilename();
-		
-		employeeData.setDocumentName(documentName);
+	    // Convert the uploaded file to a byte array and store the file name
+	    String documentName = file.getOriginalFilename();
+	    employeeData.setDocumentName(documentName);
+	    
+	    String filePath = "C:\\Users\\DELL\\Documents\\EmployeeImages\\" + documentName; // Update to your actual path
 
-		// Save the employee
-		EmployeeData createdEmployee = ser.createEmp(employeeData);
-		return new ResponseEntity<>(createdEmployee, HttpStatus.CREATED);
+	   
+
+	    // Save the file to the server
+
+	    try {
+
+	        file.transferTo(new File(filePath));
+
+	    } catch (IOException e) {
+
+	        e.printStackTrace();
+
+	        return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+
+	    }
+
+
+
+	    // Set the path in the employee data
+
+	    employeeData.setDocumentName(filePath); // Store the file path in the database
+
+	    // Set the status field
+	    employeeData.setStatus(status); // New field for status
+
+	    // Save the employee
+	    EmployeeData createdEmployee = ser.createEmp(employeeData);
+	    return new ResponseEntity<>(createdEmployee, HttpStatus.CREATED);
 	}
+
 	@GetMapping("/employees")
     public ResponseEntity<List<EmployeeData>> showAllEmpData() {
         List<EmployeeData> employees = ser.ShowAllEmp();
@@ -139,47 +143,77 @@ public class EmployeeDataController {
         }
     }
 
-	
-
-
-    
     @PutMapping("/employees")
     public ResponseEntity<EmployeeData> updateEmpData(
-            @RequestParam("id") String id,
-            @RequestParam("fName") String fName,
-            @RequestParam("lName") String lName,
-            @RequestParam("address") String address,
-            @RequestParam("mobile_no") String mobileNo,
-            @RequestParam("email") String email,
-            @RequestParam("password") String password,
-            @RequestParam("designation") String designation,
-            @RequestParam("joining_date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate joiningDate,
-            @RequestParam("salary") Double salary) {
-
+            @RequestParam String id, // Add id parameter
+            @RequestParam String fName,
+            @RequestParam String lName,
+            @RequestParam String address,
+            @RequestParam String mobile_no,
+            @RequestParam String email,
+            @RequestParam String password,
+            @RequestParam String designation,
+            @RequestParam @JsonFormat(pattern = "yyyy-MM-dd") LocalDate joining_date,
+            @RequestParam(required = false) @JsonFormat(pattern = "yyyy-MM-dd") LocalDate resigning_date,
+            @RequestParam Double salary,
+            @RequestParam(required = false) @JsonFormat(pattern = "yyyy-MM-dd") LocalDate birthDate,
+            @RequestParam(required = false) String gender,
+            @RequestParam(required = false) String bloodGroup,
+            @RequestParam(required = false) String maritalStatus,
+            @RequestParam(required = false) String qualification,
+            @RequestParam(required = false) String bankAccountNo,
+            @RequestParam(required = false) String bankName,
+            @RequestParam(required = false) String ifscCode,
+            @RequestParam(required = false) String accountType,
+            @RequestParam("file") MultipartFile file, // Accept file as part of the request
+            @RequestParam(required = false) String status
+    ) {
         // Create an EmployeeData object with the incoming parameters
-       EmployeeData employeeData = new EmployeeData();
-        employeeData.setId(id);
+        EmployeeData employeeData = new EmployeeData();
+
+        // Set the ID
+        employeeData.setId(id); // Important! Set the ID for the update
+
+        // Set all other fields
         employeeData.setfName(fName);
         employeeData.setlName(lName);
         employeeData.setAddress(address);
-        employeeData.setMobile_no(mobileNo);
+        employeeData.setMobile_no(mobile_no);
         employeeData.setEmail(email);
         employeeData.setPassword(password);
         employeeData.setDesignation(designation);
-        employeeData.setJoining_date(joiningDate);
+        employeeData.setJoining_date(joining_date);
         employeeData.setSalary(salary);
+        employeeData.setResigning_date(resigning_date);
+        employeeData.setBirthDate(birthDate);
+        employeeData.setGender(gender);
+        employeeData.setBloodGroup(bloodGroup);
+        employeeData.setMaritalStatus(maritalStatus);
+        employeeData.setQualification(qualification);
+        employeeData.setBankAccountNo(bankAccountNo);
+        employeeData.setBankName(bankName);
+        employeeData.setIfscCode(ifscCode);
+        employeeData.setAccountType(accountType);
 
+        // Handle file upload
+        if (file != null && !file.isEmpty()) {
+            String documentName = file.getOriginalFilename();
+            employeeData.setDocumentName(documentName);
+        }
 
-        
+        // Set the status
+        employeeData.setStatus(status);
 
-    	EmployeeData updatedEmployee = ser.updateEmpData(employeeData);
+        // Call the service to update employee data
+        EmployeeData updatedEmployee = ser.updateEmpData(employeeData);
 
-    return new ResponseEntity<>(updatedEmployee, HttpStatus.OK);
-    	
-
+        return new ResponseEntity<>(updatedEmployee, HttpStatus.OK);
     }
 
 
+
+    
+   
     
     
     

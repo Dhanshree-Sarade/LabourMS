@@ -47,16 +47,22 @@ public class EmpCheckController {
         return ResponseEntity.ok(records);
     }
     
-    @GetMapping("/records/{empId}")
-    public ResponseEntity<List<EmpCheckInCheckOut>> getRecordsByEmpId(@PathVariable String empId) {
-        EmployeeData emp = ser.findEmployeeById(empId); // Fetch the employee using ID
+    @GetMapping("/records/{id}")
+    public ResponseEntity<List<EmpCheckInCheckOut>> getRecordsByEmpId(@PathVariable String id) {
+        EmployeeData emp = ser.findEmployeeById(id); // Fetch the employee using ID
         if (emp == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null); // Handle case when employee is not found
         }
-        List<EmpCheckInCheckOut> records = empCheckService.getRecordsByEmpId(empId); // Pass the empId
+        List<EmpCheckInCheckOut> records = empCheckService.getRecordsByEmpId(id); // Pass the empId
         return ResponseEntity.ok(records);
     }
+    @GetMapping("/calculate-salary/{id}")
+    public ResponseEntity<String> calculateSalary(@PathVariable String id) {
+        double totalSalary = empCheckService.calculateSalary(id);
+        return ResponseEntity.ok("Total salary for worked hours: " + String.format("%.2f", totalSalary));
+    }
+  
+   
 
-    
     
 }

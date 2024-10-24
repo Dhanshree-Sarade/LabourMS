@@ -18,31 +18,58 @@ import jakarta.transaction.Transactional;
 public class EmployeeDataService {
 	@Autowired
 	private EmpolyeeDataRepo r;
+
 	private String generateId() {
-        String prefix = "emp";
-        String maxId = r.findMaxId();
-        int nextId = 101; 
-        if (maxId != null) {
-           
-            String numericPart = maxId.substring(prefix.length());
-            nextId = Integer.parseInt(numericPart) + 1;
-        }
 
-        return prefix + nextId; 
-        }
+	    String prefix = "emp";
 
-	
+	    String maxId = r.findMaxId(); // Fetch the max ID from the repository
+
+	    int nextId = 101; // Default value for the first ID
+
+
+
+	    if (maxId != null && maxId.length() > prefix.length()) {
+
+	        // Extract the numeric part only if maxId has a valid length
+
+	        String numericPart = maxId.substring(prefix.length());
+
+
+
+	        try {
+
+	            nextId = Integer.parseInt(numericPart) + 1; // Increment the numeric part
+
+	        } catch (NumberFormatException e) {
+
+	            // Handle cases where the numeric part is not a valid number
+
+	            System.err.println("Error parsing numeric part of maxId: " + e.getMessage());
+
+	        }
+	    }
+		return maxId;
+	}
+	    
+
+
     public EmployeeData createEmp(EmployeeData employeeData) {
         if (r.findByEmail(employeeData.getEmail()) != null) {
             throw new ResponseStatusException(HttpStatus.CONFLICT, "Email already exists");
         }
 
         employeeData.setId(generateId());
+
+        // Set status based on resigning date
+        if (employeeData.getResigning_date() == null) {
+            employeeData.setStatus("Active");
+        } else {
+            employeeData.setStatus("Inactive");
+        }
+
         return r.save(employeeData);
     }
-	
-	
-
 	public List<EmployeeData> ShowAllEmp() {
 		// TODO Auto-generated method stub
 		return r.findAll();
@@ -82,17 +109,35 @@ public class EmployeeDataService {
 			
 			ne.setfName(employeeData.getfName());
 			ne.setlName(employeeData.getlName());
+			ne.setBirthDate(employeeData.getBirthDate());
+			ne.setGender(employeeData.getGender());
+			ne.setBloodGroup(employeeData.getBloodGroup());
+			ne.setMaritalStatus(employeeData.getMaritalStatus());
 			ne.setAddress(employeeData.getAddress());
 			ne.setMobile_no(employeeData.getMobile_no());
 			ne.setEmail(employeeData.getEmail());
 			ne.setPassword(employeeData.getPassword());
+			ne.setQualification(employeeData.getDesignation());
 			ne.setDesignation(employeeData.getDesignation());
 			ne.setJoining_date(employeeData.getJoining_date());
+			ne.setResigning_date(employeeData.getResigning_date());
 			ne.setSalary(employeeData.getSalary());
+			ne.setBankAccountNo(employeeData.getBankAccountNo());
+			ne.setBankName(employeeData.getBankName());
+			ne.setIfscCode(employeeData.getIfscCode());
+			ne.setAccountType(employeeData.getAccountType());
+			ne.setDocumentName(employeeData.getDocumentName());
 			ne.setStatus(employeeData.getStatus());
 			
-			
+			////update this 
 		}
+		ne.setResigning_date(employeeData.getResigning_date());
+        if (employeeData.getResigning_date() == null) {
+            ne.setStatus("Active");
+        } else {
+            ne.setStatus("Inactive");
+        }
+
 		return r.save(ne);
 }
 	@Transactional
