@@ -1,6 +1,7 @@
 $("#login").on('click', function(e) {
     e.preventDefault();
 
+	alert("login...");
     let email = $("input[name='email']").val();
     let password = $("input[name='password']").val();
 

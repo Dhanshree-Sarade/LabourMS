@@ -6,7 +6,7 @@ function showEmployeeAttendance() {
     $.ajax({
         type: "GET",
         contentType: "application/json",
-        url: '/records',
+        url: '/api/attendance/records',
         dataType: 'json',
         success: function(data) {
             var d = '';

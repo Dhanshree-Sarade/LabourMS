@@ -55,6 +55,136 @@ $("#empSave").on('click', function(e) {
     let password = $("input[name='password']").val();
     let joining_date = $("input[name='joiningDate']").val();
     let salary = $("input[name='salary']").val();
+    let gender = $("select[name='gender']").val();
+    let birthDate = $("input[name='birthDate']").val();
+    let bloodGroup = $("select[name='bloodGroup']").val();
+    let maritalStatus = $("select[name='maritalStatus']").val();
+    let resigningDate = $("input[name='resigningDate']").val();
+    let employeeStatus = $("select[name='employeeStatus']").val();
+    let bankAccountNo = $("input[name='bankAccountNo']").val();
+    let bankName = $("input[name='bankName']").val();
+    let ifscCode = $("input[name='ifscCode']").val();
+    let accountType = $("select[name='accountType']").val();
+    let document = $("input[name='document']")[0].files[0]; // For the document file
+
+    // Clear any previous validation error messages
+    $(".error-msg").remove();
+
+    // Regular expressions for validation
+    let namePattern = /^[A-Za-z\s]+$/; // For First Name, Last Name (Alphabets and spaces only)
+    let addressPattern = /^[A-Za-z0-9\s,.-]+$/; // For Address (Allowing characters, numbers, spaces, commas, periods, hyphens)
+
+    // Validate First Name
+    if (!fName || fName.trim().length < 2 || !namePattern.test(fName)) {
+        isValid = false;
+        $("input[name='fName']").after('<span class="error-msg" style="color:red;">First Name is required (min 2 characters, alphabets only)</span>');
+    }
+
+    // Validate Last Name
+    if (!lName || lName.trim().length < 2 || !namePattern.test(lName)) {
+        isValid = false;
+        $("input[name='lName']").after('<span class="error-msg" style="color:red;">Last Name is required (min 2 characters, alphabets only)</span>');
+    }
+
+    // Validate Mobile Number (Basic format check)
+    let mobilePattern = /^[0-9]{10}$/;
+    if (!mobile_no || !mobilePattern.test(mobile_no)) {
+        isValid = false;
+        $("input[name='mobile_no']").after('<span class="error-msg" style="color:red;">Enter a valid 10-digit Mobile Number</span>');
+    }
+
+    // Validate Address
+    if (!address || address.trim().length < 5 || !addressPattern.test(address)) {
+        isValid = false;
+        $("input[name='address']").after('<span class="error-msg" style="color:red;">Address must be at least 5 characters long (alphanumeric and symbols: ,.-)</span>');
+    }
+
+    // Validate Designation
+    if (!designation) {
+        isValid = false;
+        $("select[name='designation']").after('<span class="error-msg" style="color:red;">Please select a designation</span>');
+    }
+
+    // Validate Email (Basic format check)
+    let emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+    if (!email || !emailPattern.test(email)) {
+        isValid = false;
+        $("input[name='email']").after('<span class="error-msg" style="color:red;">Enter a valid Email</span>');
+    }
+
+    // Validate Password
+    if (!password || password.trim().length < 6) {
+        isValid = false;
+        $("input[name='password']").after('<span class="error-msg" style="color:red;">Password must be at least 6 characters long</span>');
+    }
+
+    // Validate Joining Date
+    if (!joining_date) {
+        isValid = false;
+        $("input[name='joiningDate']").after('<span class="error-msg" style="color:red;">Joining Date is required</span>');
+    }
+
+    // Validate Salary
+    if (!salary || salary <= 0) {
+        isValid = false;
+        $("input[name='salary']").after('<span class="error-msg" style="color:red;">Please enter a valid Salary</span>');
+    }
+
+    // If form is valid, proceed with AJAX request
+    if (isValid) {
+        let formData = new FormData();
+        formData.append("fName", fName);
+        formData.append("lName", lName);
+        formData.append("mobile_no", mobile_no);
+        formData.append("address", address);
+        formData.append("designation", designation);
+        formData.append("email", email);
+        formData.append("password", password);
+        formData.append("joining_date", joining_date);
+        formData.append("salary", salary);
+        formData.append("status", employeeStatus);
+        formData.append("document", document); // Append the document file
+
+        $.ajax({
+            type: "POST",
+            url: '/employees',
+            data: formData,
+            processData: false, // Prevent jQuery from processing the data
+            contentType: false, // Let the browser set the appropriate content type for FormData
+            success: function(response) {
+                alert("Employee Added Successfully.");
+                $("#registerForm").trigger("reset");
+            },
+            error: function(e) {
+                alert("Error adding employee.");
+            }
+        });
+    } else {
+        alert("Please correct the errors and submit again.");
+    }
+});
+
+
+
+
+
+
+
+/*$("#empSave").on('click', function(e) {
+    e.preventDefault();
+    
+    let isValid = true;
+
+    // Fetch input values
+    let fName = $("input[name='fName']").val();
+    let lName = $("input[name='lName']").val();
+    let mobile_no = $("input[name='mobile_no']").val();
+    let address = $("input[name='address']").val();
+    let designation = $("select[name='designation']").val();
+    let email = $("input[name='email']").val();
+    let password = $("input[name='password']").val();
+    let joining_date = $("input[name='joiningDate']").val();
+    let salary = $("input[name='salary']").val();
 
     // Clear any previous validation error messages
     $(".error-msg").remove();
@@ -151,7 +281,7 @@ $("#empSave").on('click', function(e) {
     } else {
         alert("Please correct the errors and submit again.");
     }
-});
+});*/
 
 
 
