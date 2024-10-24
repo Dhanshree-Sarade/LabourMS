@@ -1,5 +1,6 @@
 package com.lbs.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.HashMap;
@@ -62,6 +63,62 @@ public class EmployeeDataController {
         return new ResponseEntity<>(createdEmployee, HttpStatus.CREATED);
     }
 	*/
+//	@PostMapping("/employees")
+//	public ResponseEntity<EmployeeData> createEmp(
+//	        @RequestParam String fName,
+//	        @RequestParam String lName,
+//	        @RequestParam String address,
+//	        @RequestParam String mobile_no,
+//	        @RequestParam String email,
+//	        @RequestParam String password,
+//	        @RequestParam String designation,
+//	        @RequestParam @JsonFormat(pattern = "yyyy-MM-dd") LocalDate joining_date,
+//	        @RequestParam Double salary,
+//	        @RequestParam String status,
+//	        @RequestParam(required = false) @JsonFormat(pattern = "yyyy-MM-dd") LocalDate birthDate,
+//	        @RequestParam(required = false) String gender,
+//	        @RequestParam(required = false) String bloodGroup,
+//	        @RequestParam(required = false) String maritalStatus,
+//	        @RequestParam(required = false) String qualification,
+//	        @RequestParam(required = false) String bankAccountNo,
+//	        @RequestParam(required = false) String bankName,
+//	        @RequestParam(required = false) String ifscCode,
+//	        @RequestParam(required = false) String accountType,
+//	        @RequestParam("file") MultipartFile file // Accept file as part of the request
+//	) {
+//	    EmployeeData employeeData = new EmployeeData();
+//		// Set all other fields
+//		employeeData.setfName(fName);
+//		employeeData.setlName(lName);
+//		employeeData.setAddress(address);
+//		employeeData.setMobile_no(mobile_no);
+//		employeeData.setEmail(email);
+//		employeeData.setPassword(password);
+//		employeeData.setDesignation(designation);
+//		employeeData.setJoining_date(joining_date);
+//		employeeData.setSalary(salary);
+//		employeeData.setStatus(status);
+//		employeeData.setBirthDate(birthDate);
+//		employeeData.setGender(gender);
+//		employeeData.setBloodGroup(bloodGroup);
+//		employeeData.setMaritalStatus(maritalStatus);
+//		employeeData.setQualification(qualification);
+//		employeeData.setBankAccountNo(bankAccountNo);
+//		employeeData.setBankName(bankName);
+//		employeeData.setIfscCode(ifscCode);
+//		employeeData.setAccountType(accountType);
+//
+//		// Convert the uploaded file to a byte array and store the file name
+//      
+//		String documentName = file.getOriginalFilename();
+//		
+//		employeeData.setDocumentName(documentName);
+//
+//		// Save the employee
+//		EmployeeData createdEmployee = ser.createEmp(employeeData);
+//		return new ResponseEntity<>(createdEmployee, HttpStatus.CREATED);
+//	}
+	
 	@PostMapping("/employees")
 	public ResponseEntity<EmployeeData> createEmp(
 	        @RequestParam String fName,
@@ -86,37 +143,49 @@ public class EmployeeDataController {
 	        @RequestParam("file") MultipartFile file // Accept file as part of the request
 	) {
 	    EmployeeData employeeData = new EmployeeData();
-		// Set all other fields
-		employeeData.setfName(fName);
-		employeeData.setlName(lName);
-		employeeData.setAddress(address);
-		employeeData.setMobile_no(mobile_no);
-		employeeData.setEmail(email);
-		employeeData.setPassword(password);
-		employeeData.setDesignation(designation);
-		employeeData.setJoining_date(joining_date);
-		employeeData.setSalary(salary);
-		employeeData.setStatus(status);
-		employeeData.setBirthDate(birthDate);
-		employeeData.setGender(gender);
-		employeeData.setBloodGroup(bloodGroup);
-		employeeData.setMaritalStatus(maritalStatus);
-		employeeData.setQualification(qualification);
-		employeeData.setBankAccountNo(bankAccountNo);
-		employeeData.setBankName(bankName);
-		employeeData.setIfscCode(ifscCode);
-		employeeData.setAccountType(accountType);
+	    // Set all other fields
+	    employeeData.setfName(fName);
+	    employeeData.setlName(lName);
+	    employeeData.setAddress(address);
+	    employeeData.setMobile_no(mobile_no);
+	    employeeData.setEmail(email);
+	    employeeData.setPassword(password);
+	    employeeData.setDesignation(designation);
+	    employeeData.setJoining_date(joining_date);
+	    employeeData.setSalary(salary);
+	    employeeData.setStatus(status);
+	    employeeData.setBirthDate(birthDate);
+	    employeeData.setGender(gender);
+	    employeeData.setBloodGroup(bloodGroup);
+	    employeeData.setMaritalStatus(maritalStatus);
+	    employeeData.setQualification(qualification);
+	    employeeData.setBankAccountNo(bankAccountNo);
+	    employeeData.setBankName(bankName);
+	    employeeData.setIfscCode(ifscCode);
+	    employeeData.setAccountType(accountType);
 
-		// Convert the uploaded file to a byte array and store the file name
-      
-		String documentName = file.getOriginalFilename();
-		
-		employeeData.setDocumentName(documentName);
+	    // Store the file
+	    String documentName = file.getOriginalFilename();
+	    String filePath = "C:\\Users\\Dhanshree\\Documents\\EmployeeImages\\" + documentName; // Update to your actual path
 
-		// Save the employee
-		EmployeeData createdEmployee = ser.createEmp(employeeData);
-		return new ResponseEntity<>(createdEmployee, HttpStatus.CREATED);
+	    // Save the file to the server
+	    try {
+	        file.transferTo(new File(filePath));
+	    } catch (IOException e) {
+	        e.printStackTrace();
+	        return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+	    }
+
+	    // Set the path in the employee data
+	    employeeData.setDocumentName(filePath); // Store the file path in the database
+
+	    // Save the employee
+	    EmployeeData createdEmployee = ser.createEmp(employeeData);
+	    return new ResponseEntity<>(createdEmployee, HttpStatus.CREATED);
 	}
+
+	
+	
 	@GetMapping("/employees")
     public ResponseEntity<List<EmployeeData>> showAllEmpData() {
         List<EmployeeData> employees = ser.ShowAllEmp();
